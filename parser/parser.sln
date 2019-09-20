@@ -3,6 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lexical_analysis", "lexical_analysis\lexical_analysis.csproj", "{40CFCEDE-CBB7-4E9B-8D99-6F955DDB963F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9AEAD499-460A-41EF-92D3-B2AE35517C4C}"
+	ProjectSection(SolutionItems) = preProject
+		EmptyCSharpFile.cs = EmptyCSharpFile.cs
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
