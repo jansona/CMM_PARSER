@@ -94,65 +94,25 @@ namespace lexical_analysis
                             tokens.Add(sigToken);
                             continue;
                         case '*':
-                            if (chars[i + 1].Equals('/'))
-                            {
-                                Token rightNoteToken = new Token();
-                                rightNoteToken.Id = SigTable.pairs["*/"];
-                                tokens.Add(rightNoteToken);
-                                ++i;
-                            }
-                            else
-                            {
-                                Token mulToken = new Token();
-                                mulToken.Id = SigTable.pairs["*"];
-                                tokens.Add(mulToken);
-                            }
-                            continue;
                         case '/':
-                            if (chars[i + 1].Equals('*'))
-                            {
-                                Token leftNoteToken = new Token();
-                                leftNoteToken.Id = SigTable.pairs["/*"];
-                                tokens.Add(leftNoteToken);
-                                ++i;
-                            }
-                            else
-                            {
-                                Token divToken = new Token();
-                                divToken.Id = SigTable.pairs["/"];
-                                tokens.Add(divToken);
-                            }
-                            continue;
                         case '=':
-                            if (chars[i + 1].Equals('='))
-                            {
-                                Token equalToken = new Token();
-                                equalToken.Id = SigTable.pairs["=="];
-                                tokens.Add(equalToken);
-                                ++i;
-                            }
-                            else
-                            {
-                                Token assignToken = new Token();
-                                assignToken.Id = SigTable.pairs["="];
-                                tokens.Add(assignToken);
-                            }
-                            continue;
                         case '<':
-                            if (chars[i + 1].Equals('>'))
+                            string sigStr = c.ToString() + chars[i + 1].ToString();
+                            if (SigTable.pairs.ContainsKey(sigStr))
                             {
-                                Token unequalToken = new Token();
-                                unequalToken.Id = SigTable.pairs["<>"];
-                                tokens.Add(unequalToken);
+                                Token doubleCharToken = new Token();
+                                doubleCharToken.Id = SigTable.pairs[sigStr];
+                                tokens.Add(doubleCharToken);
                                 ++i;
                             }
                             else
                             {
-                                Token lessThanToken = new Token();
-                                lessThanToken.Id = SigTable.pairs["<"];
-                                tokens.Add(lessThanToken);
+                                Token sigleCharToken = new Token();
+                                sigleCharToken.Id = SigTable.pairs[c.ToString()];
+                                tokens.Add(sigleCharToken);
                             }
                             continue;
+
                     }
                 }
 
