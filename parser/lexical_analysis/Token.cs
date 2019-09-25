@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,8 +9,7 @@ namespace lexical_analysis
         private int id;
         private string name;
         // 作用域
-        // 数值
-
+        private double val;
         public int Id
         {
             get
@@ -34,5 +33,17 @@ namespace lexical_analysis
                 name = value;
             }
         }
+        public double Val
+        {
+            get
+            {
+                return val;
+            }
+            set
+            {
+                val = value;
+            }
+        }
     }
 }
+
