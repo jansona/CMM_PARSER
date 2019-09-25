@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -52,9 +52,27 @@ namespace lexical_analysis
                 else if (Char.IsNumber(c))
                 {
                     string numberStr = "";
+                    double value = 0;
+                    double afterDot = 10;
+                    int flag = 0;//标记是否遇见小数点
                     while (IsNumberDot(c))
                     {
                         numberStr += c;
+
+                        if (c == '.')
+                        {
+                            flag = 1;
+                        }
+                        if (flag == 0)
+                        {
+                            value = value * 10 + c - '0';
+                        }
+                        else if(c !='.')
+                        {
+                            value += (c - '0') / afterDot;
+                            afterDot *= 10;
+                        }
+                        
                         ++i;
                         if (i >= sentence.Length)
                         {
@@ -65,7 +83,7 @@ namespace lexical_analysis
 
                     Token numberToken = new Token();
                     numberToken.Id = SigTable.pairs["constnum"];
-                    // TO DO assign the value
+                    numberToken.Val = value;
                     tokens.Add(numberToken);
 
                     --i;
@@ -144,7 +162,10 @@ namespace lexical_analysis
         {
             foreach(Token token in tokens)
             {
-                Console.Write(SigTable.GetKey(token.Id) + " ");
+                Console.Write("id:"+SigTable.GetKey(token.Id) + "   ");
+                if(token.Name!=null) Console.Write("name:"+token.Name+"   ");
+                if (SigTable.GetKey(token.Id) == "constnum") Console.Write("value:" + token.Val + "\n");
+                else Console.Write("\n");
             }
         }
     }
