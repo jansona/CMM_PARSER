@@ -49,5 +49,13 @@ namespace lexical_analysis
 
             return "ERR";
         }
+
+        public static void ShowSigTable()
+        {
+            foreach (KeyValuePair<string, int> keyValue in pairs)
+            {
+                Console.WriteLine($"'{keyValue.Key}' : {keyValue.Value},");
+            }
+        }
     }
 }

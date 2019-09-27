@@ -20,6 +20,8 @@ namespace lexical_analysis
             List<Token> tokens = parser.ParseSentence(str);
             Console.Write(str+"\n");
             LexParser.CheckTokens(tokens);
+
+            SigTable.ShowSigTable();
         }
     }
 }
