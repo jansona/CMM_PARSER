@@ -103,10 +103,17 @@ class LexParser(object):
 
     @staticmethod
     def check_tokens(tokens):
-
+        
         for token in tokens:
-            print(get_key(token.idt))
-
+            print(get_key(token.idt), end=' ')
+            if(token.name!=''):
+                print("name = ", end='')
+                print(token.name, end=' ')
+            if(token.val!=None):
+                print("value = ", end='')
+                print((token.val))
+            else:
+                print()
 
 def test():
     code = "main()"
