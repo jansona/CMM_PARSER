@@ -28,5 +28,8 @@ SIG_TABLE_DICT = {
     'identity' : 26,
 }
 
+INT = 0
+REAL = 1
+
 def get_key(value):
     return [k for k, v in SIG_TABLE_DICT.items() if v == value]

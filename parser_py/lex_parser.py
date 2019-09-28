@@ -5,11 +5,12 @@ from sig_table import SIG_TABLE_DICT as STD, get_key
 # 我也是日了狗了，放在token.py下蜜汁失效
 class Token(object):
 
-    def __init__(self, idt=0, name="", val=None):
+    def __init__(self, idt=0, name="", value=None, var_type=None):
         
         self.idt = idt
         self.name = name
-        self.val = val
+        self.value = value
+        self.var_type = var_type
 
 
 class LexParser(object):
@@ -75,7 +76,7 @@ class LexParser(object):
 
                     char = sentence[i]
 
-                token = Token(idt=STD["constnum"], val=number_str)
+                token = Token(idt=STD["constnum"], value=number_str)
                 tokens.append(token)
 
                 i -= 1
@@ -105,7 +106,6 @@ class LexParser(object):
 
         for token in tokens:
             print(get_key(token.idt))
-
 
 
 def test():
