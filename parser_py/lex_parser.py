@@ -21,6 +21,7 @@ class LexParser(object):
     def parse_sentence(self, sentence):
 
         tokens = []
+        line = 1
 
         length = len(sentence)
         # for i in range(len(sentence)):
@@ -47,9 +48,9 @@ class LexParser(object):
                     char = sentence[i]
 
                 if word in STD.keys():
-                    token = Token(idt=STD[word])
+                    token = Token(idt=STD[word], line=line)
                 else:
-                    token = Token(idt=STD['identity'], name=word)
+                    token = Token(idt=STD['identity'], name=word, line=line)
 
                 tokens.append(token)
 
@@ -76,11 +77,13 @@ class LexParser(object):
 
                     char = sentence[i]
 
-                token = Token(idt=STD["constnum"], value=number_str)
+                token = Token(idt=STD["constnum"], value=number_str, line=line)
                 tokens.append(token)
 
                 i -= 1
             elif str.isspace(char):
+                if char is '\n':
+                    line += 1
                 pass
             elif char in r"+->(){}[];":
                 sig_token = Token(idt=STD[char])
@@ -90,10 +93,10 @@ class LexParser(object):
 
                 token = None
                 if sig_str in STD.keys():
-                    token = Token(idt=STD[sig_str])
+                    token = Token(idt=STD[sig_str], line=line)
                     i += 1
                 else:
-                    token = Token(idt=STD[char])
+                    token = Token(idt=STD[char], line=line)
 
                 tokens.append(token)
 
@@ -109,9 +112,9 @@ class LexParser(object):
             if(token.name!=''):
                 print("name = ", end='')
                 print(token.name, end=' ')
-            if(token.val!=None):
+            if(token.value!=None):
                 print("value = ", end='')
-                print((token.val))
+                print((token.value))
             else:
                 print()
 
