@@ -1,11 +1,34 @@
-
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lexical_analysis", "lexical_analysis\lexical_analysis.csproj", "{40CFCEDE-CBB7-4E9B-8D99-6F955DDB963F}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lexical_analysis", "lexical_analysis\lexical_analysis.csproj", "{40CFCEDE-CBB7-4E9B-8D99-6F955DDB963F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9AEAD499-460A-41EF-92D3-B2AE35517C4C}"
 	ProjectSection(SolutionItems) = preProject
 		EmptyCSharpFile.cs = EmptyCSharpFile.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "parserGUI", "parserGUI", "{AA02DF93-89B0-454E-A7AF-2BAAFFC45745}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\CMMParser.cs = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\CMMParser.cs
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\CMMParser.Designer.cs = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\CMMParser.Designer.cs
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\CMMParser.resx = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\CMMParser.resx
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Program.cs = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Program.cs
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{E07714D3-D6B2-4A1E-8E1C-ABC9F4A61ABF}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\a dreamy world05.jpg = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\a dreamy world05.jpg
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\arrow_undo.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\arrow_undo.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\cut.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\cut.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\disk.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\disk.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\folder_page.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\folder_page.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\page_copy.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\page_copy.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\page_paste.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\page_paste.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\pencil_delete.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\pencil_delete.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\pencil_go.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\pencil_go.png
+		..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\无标题.png = ..\..\..\..\Desktop\CMM2009\CMM Parser GUI\CMM\Resources\无标题.png
 	EndProjectSection
 EndProject
 Global
@@ -18,5 +41,14 @@ Global
 		{40CFCEDE-CBB7-4E9B-8D99-6F955DDB963F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40CFCEDE-CBB7-4E9B-8D99-6F955DDB963F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40CFCEDE-CBB7-4E9B-8D99-6F955DDB963F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E07714D3-D6B2-4A1E-8E1C-ABC9F4A61ABF} = {AA02DF93-89B0-454E-A7AF-2BAAFFC45745}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {46CD6B68-23A8-4912-8F85-A12D0666D48A}
 	EndGlobalSection
 EndGlobal
