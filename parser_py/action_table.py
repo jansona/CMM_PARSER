@@ -18,6 +18,8 @@ class ActionTable(object):
             form_num = action[1:]
             (num2reduce, token) = self.table_data["forms"][form_num]
             return ('r', num2reduce, token)
+        elif '#' in action:
+            return ('#',)
         else:
             return ('err', token)
 

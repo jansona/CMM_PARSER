@@ -102,6 +102,7 @@ class LexParser(object):
 
             i += 1
 
+        tokens.append(Token(idt=STD['#']))
         return tokens
 
     @staticmethod

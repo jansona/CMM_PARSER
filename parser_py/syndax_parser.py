@@ -30,6 +30,8 @@ class SyntaxParser(object):
                 token = action[2]
                 status = table.goto(analysis_stack[-1][0], token)
                 analysis_stack.append((status, token))
+            elif '#' in action[0]:
+                break
             else:
                 pass
 
