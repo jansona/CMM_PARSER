@@ -1,16 +1,5 @@
-from sig_table import SIG_TABLE_DICT as STD, get_key
-# from token import *
-
-
-# 我也是日了狗了，放在token.py下蜜汁失效
-class Token(object):
-
-    def __init__(self, idt=0, name="", value=None, var_type=None):
-        
-        self.idt = idt
-        self.name = name
-        self.value = value
-        self.var_type = var_type
+from subparser.sig_table import SIG_TABLE_DICT as STD, get_key
+from subparser.token import *
 
 
 class LexParser(object):

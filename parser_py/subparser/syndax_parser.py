@@ -1,5 +1,6 @@
-from action_table import ActionTable
-from action_table_data import action_table_data
+from subparser.action_table import ActionTable
+from subparser.action_table_data import action_table_data
+from subparser.token import Token
 
 
 class SyntaxParser(object):
@@ -7,7 +8,7 @@ class SyntaxParser(object):
     def __init__(self):
         pass
 
-    def parse_tokens(tokens):
+    def parse_tokens(self, tokens):
         
         table = ActionTable(action_table_data)
 
