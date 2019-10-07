@@ -1,4 +1,5 @@
 import sys, getopt
+from subparser.sig_table import get_key
 from subparser.lex_parser import LexParser
 from subparser.syndax_parser import SyntaxParser
 
@@ -9,6 +10,10 @@ class CmmParser(object):
         self.lparser = lparser
         self.sparser = sparser
 
+    def covert_int2str(self, tokens):
+        for token in tokens:
+            token.idt = get_key(token.idt)[0]
+
     def parse(self, ifilename, ofilename=None, show_lex=False, show_syntax=False):
         code_str = None
 
@@ -16,11 +21,15 @@ class CmmParser(object):
             code_str = '\n'.join(fin.readlines())
 
         tokens = self.lparser.parse_sentence(code_str)
+        self.covert_int2str(tokens)
 
         if show_lex:
-            self.lparser.check_tokens(tokens)
+            self.lparser.check_tokens_2(tokens)
 
-        
+        if self.sparser.parse_tokens(tokens):
+            print("Succeeded")
+        else:
+            print("Failed")
 
     
 def main(argv):
@@ -57,8 +66,12 @@ def main(argv):
 
     parser.parse(infile, ofilename=outfile, show_lex=is_show_lex, show_syntax=is_show_syntax)
 
-    
+
+def test():
+    parser = CmmParser(LexParser(), SyntaxParser())  
+    parser.parse("test_code.cmm", show_lex=False, show_syntax=True)  
 
 
 if __name__ == '__main__':
+    # test()
     main(sys.argv[1:])

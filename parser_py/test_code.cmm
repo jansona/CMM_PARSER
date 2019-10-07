@@ -1,4 +1,7 @@
-int main()
+main()
 {
-    return 0;
+    int a = 5;
+    real b = 1.0;
+
+    read(a);
 }

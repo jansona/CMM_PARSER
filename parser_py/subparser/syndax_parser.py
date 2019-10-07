@@ -1,6 +1,6 @@
 from subparser.action_table import ActionTable
 from subparser.action_table_data import action_table_data
-from subparser.token import Token
+from subparser.cmm_token import Token
 
 
 class SyntaxParser(object):
@@ -14,25 +14,34 @@ class SyntaxParser(object):
 
         analysis_stack = []
         # TODO 赋予结束标志token更有意义的值
-        analysis_stack.append((0, Token()))
+        analysis_stack.append((0, Token(idt="#")))
 
-        for token in tokens:
-            status = analysis_stack[-1][0]
+        i = 0
+        length = len(tokens)
+        while i < length:
+            token = tokens[i]
+            state = analysis_stack[-1][0]
 
-            action = table.goto(status, token)
+            print(token.idt, analysis_stack[-1][0])
+            action = table.action(state, token)
 
             if 's' is action[0]:
                 analysis_stack.append((action[1], action[2]))
+                i += 1
             elif 'r' is action[0]:
                 num2reduce = action[1]
-                for _ in range(num2reduce):
-                    analysis_stack.pop()
 
-                token = action[2]
-                status = table.goto(analysis_stack[-1][0], token)
-                analysis_stack.append((status, token))
+                reduce_action_args = []
+                for _ in range(num2reduce):
+                    reduce_action_args.append(analysis_stack.pop())
+                reduce_action_args.reverse()
+
+                # TODO 规约动作暂时没有利用参数
+                token = action[2]()
+                state = table.goto(analysis_stack[-1][0], token)
+                analysis_stack.append((state, token))
             elif '#' in action[0]:
-                break
+                return True
             else:
-                pass
+                return False
 
