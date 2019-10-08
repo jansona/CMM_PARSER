@@ -37,7 +37,7 @@ Usage: python cmm_parser.py source_file [options]
 Options:
     -h, --help   Show this help
     -l, --lex    Show the intermediate result of the lex parsing
-    -s, --syntax Show the process of the syntad parsing
+    -s, --syntax Show the process of the syntax parsing
 """
 
 def main(argv):
