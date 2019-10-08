@@ -8,7 +8,7 @@ class SyntaxParser(object):
     def __init__(self):
         pass
 
-    def parse_tokens(self, tokens):
+    def parse_tokens(self, tokens, show_syntax=False):
         
         table = ActionTable(action_table_data)
 
@@ -22,8 +22,18 @@ class SyntaxParser(object):
             token = tokens[i]
             state = analysis_stack[-1][0]
 
-            print(token.idt, analysis_stack[-1][0])
             action = table.action(state, token)
+
+            if show_syntax:
+                def show_stack():
+                    print("analysis stack:", end="\t")
+                    print(" ".join(["{}:{}".format(elem[0], elem[1].idt) for elem in analysis_stack]))
+
+                show_stack()
+                print("token incoming: {}".format(token.idt))
+                print("action: {}".format(action[0]))
+                print()
+                # input() 单步好像没啥意义
 
             if 's' is action[0]:
                 analysis_stack.append((action[1], action[2]))

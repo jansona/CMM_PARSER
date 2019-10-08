@@ -1,7 +1,7 @@
 import sys, getopt
 from subparser.sig_table import get_key
 from subparser.lex_parser import LexParser
-from subparser.syndax_parser import SyntaxParser
+from subparser.syntax_parser import SyntaxParser
 
 
 class CmmParser(object):
@@ -26,21 +26,32 @@ class CmmParser(object):
         if show_lex:
             self.lparser.check_tokens_2(tokens)
 
-        if self.sparser.parse_tokens(tokens):
+        if self.sparser.parse_tokens(tokens, show_syntax=show_syntax):
             print("Succeeded")
         else:
             print("Failed")
 
-    
+
+help_str = """
+Usage: python cmm_parser.py source_file [options]
+Options:
+    -h, --help   Show this help
+    -l, --lex    Show the intermediate result of the lex parsing
+    -s, --syntax Show the process of the syntad parsing
+"""
+
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hlso:", ["output="])
-
+        opts, args = getopt.getopt(argv, "hlso:", ["output=", "help", "lex", "syntax"])
+        
         if len(args) != 1:
             raise Exception
 
     except getopt.GetoptError:
-        print("getopt.GetoptError")
+        print(help_str)
+        sys.exit(1)
+    except Exception:
+        print(help_str)
         sys.exit(1)
 
     infile = args[0]
@@ -52,11 +63,11 @@ def main(argv):
     for opt, arg in opts:
         if opt in ("-o", "--output"):
             outfile = arg
-        elif opt in ("-h"):
-            pass
-        elif opt in ("-l"):
+        elif opt in ("-h", "--help"):
+            print(help_str)
+        elif opt in ("-l", "--lex"):
             is_show_lex = True
-        elif opt in ("-s"):
+        elif opt in ("-s", "--syntax"):
             is_show_syntax = True
 
     if not outfile:

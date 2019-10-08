@@ -94,31 +94,27 @@ class LexParser(object):
         tokens.append(Token(idt=STD['#']))
         return tokens
 
-    @staticmethod
-    def check_tokens(tokens):
+    # @staticmethod
+    # def check_tokens(tokens):
         
-        for token in tokens:
-            print(get_key(token.idt), end=' ')
-            if(token.name!=''):
-                print("name = ", end='')
-                print(token.name, end=' ')
-            if(token.value!=None):
-                print("value = ", end='')
-                print((token.value))
-            else:
-                print()
+    #     for token in tokens:
+    #         print("idt:{}".format(get_key(token.idt)), end=' ')
+    #         if(token.name!=''):
+    #             print("name:{}".format(token.name), end=' ')
+    #         if(token.value!=None):
+    #             print("value:{}".format(token.value), end=' ')
+    #         else:
+    #             print()
     
     @staticmethod
     def check_tokens_2(tokens):
         
         for token in tokens:
-            print(token.idt, end=' ')
+            print("idt:<{}>".format(token.idt), end='')
             if(token.name!=''):
-                print("name = ", end='')
-                print(token.name, end=' ')
+                print(", name:'{}'".format(token.name), end='')
             if(token.value!=None):
-                print("value = ", end='')
-                print((token.value))
+                print(", value:'{}'".format(token.value), end='')
             else:
                 print()
 
