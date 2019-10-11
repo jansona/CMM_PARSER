@@ -164,3 +164,9 @@ $RECYCLE.BIN/
 .vscode
 
 *.pyc
+
+*.exe
+*.cache
+
+parserGUI/CMM/obj/
+parserGUI/CMM/bin/
