@@ -81,7 +81,23 @@ class LexParser(object):
                 sig_str = char + sentence[i+1]
 
                 token = None
-                if sig_str in STD.keys():
+  
+                if sig_str in ("/*",):
+                    i += 1
+                    find_right_comment = False
+                    while i < length-1:
+                        two_char = sentence[i:i+2]
+                        if two_char in ("*/",):
+                            find_right_comment = True
+                            i += 2
+                            break
+                        i += 1
+                    if find_right_comment:
+                        continue
+                    else:
+                        print("err")
+                        exit(1) # handle error of unpaired comments
+                elif sig_str in STD.keys():
                     token = Token(idt=STD[sig_str], line=line)
                     i += 1
                 else:
@@ -123,7 +139,7 @@ def test():
 
     parser = LexParser()
     
-    LexParser.check_tokens(parser.parse_sentence(code))
+    LexParser.check_tokens_2(parser.parse_sentence(code))
 
 
 if __name__ == "__main__":

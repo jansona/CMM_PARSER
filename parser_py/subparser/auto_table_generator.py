@@ -14,6 +14,7 @@ replace_dict = {
     'w': 'while',
     'e': 'read',
     't': 'write',
+    's': 'else',
 }
 
 def replace_symbol(c):
@@ -114,5 +115,5 @@ def generate_gotos(filename='action_goto.txt'):
 
 if __name__ == "__main__":
     generate_forms()
-    # generate_actions()
-    # generate_gotos()
+    generate_actions()
+    generate_gotos()

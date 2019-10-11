@@ -1,8 +1,8 @@
 main()
 {
     int a = 5;
-    real b = 1.0;
+    a = b + 1;
+    real c = 1.0;
 
-    int c = a + b;
-
+/* asdf */
 }

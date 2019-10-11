@@ -1,9 +1,0 @@
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\bin\Debug\CMM.exe
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\bin\Debug\CMM.pdb
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\obj\Debug\CMM.csprojAssemblyReference.cache
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\obj\Debug\CMM.CMMParser.resources
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\obj\Debug\CMM.Properties.Resources.resources
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\obj\Debug\CMM.csproj.GenerateResource.cache
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\obj\Debug\CMM.csproj.CopyComplete
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\obj\Debug\CMM.exe
-C:\Users\lenovo\Desktop\CMM2009\CMM Parser\CMM\obj\Debug\CMM.pdb

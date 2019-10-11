@@ -27,6 +27,7 @@ SIG_TABLE_DICT = {
     'constnum' : 25,
     'identity' : 26,
     '#': 27,
+    'comment': 28,
 }
 
 INT = 0
