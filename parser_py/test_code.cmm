@@ -1,8 +1,4 @@
-main()
+int main()
 {
-    int a = 5;
-    a = b + 1;
-    real c = 1.0;
-
-/* asdf */
+    
 }
