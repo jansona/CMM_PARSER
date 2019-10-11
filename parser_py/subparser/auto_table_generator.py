@@ -15,6 +15,7 @@ replace_dict = {
     'e': 'read',
     't': 'write',
     's': 'else',
+    '`': ','
 }
 
 def replace_symbol(c):
@@ -42,6 +43,7 @@ def generate_forms(filename='forms.txt'):
             nums.append(num2reduce)
 
     with open("{}.py".format(filename.split(".")[0]), 'w') as fout:
+        fout.write("from subparser.cmm_token import Token\n\n")
         for func in funcs:
             fout.write(func + "\n")
 
@@ -61,6 +63,7 @@ def generate_actions(filename='action_goto.txt'):
             print(line)
             print(len(line))
             line = line[1:-2] + line[-1]
+            print(line)
             state, token_idt, action = line.split(",")
 
             if str.isupper(token_idt):
