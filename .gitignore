@@ -170,3 +170,6 @@ $RECYCLE.BIN/
 
 parserGUI/CMM/obj/
 parserGUI/CMM/bin/
+
+*.lex
+*.syn

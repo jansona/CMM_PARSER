@@ -1,5 +1,6 @@
 from subparser.sig_table import SIG_TABLE_DICT as STD, get_key
 from subparser.cmm_token import *
+import sys
 
 
 class LexParser(object):
@@ -123,16 +124,26 @@ class LexParser(object):
     #             print()
     
     @staticmethod
-    def check_tokens_2(tokens):
+    def check_tokens_2(tokens, file_name=None):
+
+        if file_name:
+            fout = open(file_name + ".lex", 'w')
+            outstream = fout
+        else:
+            outstream = sys.stdout
         
         for token in tokens:
-            print("idt:<{}>".format(token.idt), end='')
+            print("idt:<{}>".format(token.idt), end='', file=outstream)
             if(token.name!=''):
-                print(", name:'{}'".format(token.name), end='')
+                print(", name:'{}'".format(token.name), end='', file=outstream)
             if(token.value!=None):
-                print(", value:'{}'".format(token.value), end='')
+                print(", value:'{}'".format(token.value), end='', file=outstream)
             else:
-                print()
+                print(file=outstream)
+
+        if outstream is not sys.stdout:
+            outstream.close()
+            outstream = sys.stdout
 
 def test():
     code = "main()"
