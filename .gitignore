@@ -173,3 +173,6 @@ parserGUI/CMM/bin/
 
 *.lex
 *.syn
+
+*.gv
+*.png
