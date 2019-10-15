@@ -14,7 +14,7 @@ class CmmParser(object):
         for token in tokens:
             token.idt = get_key(token.idt)[0]
 
-    def parse(self, ifilename, ofilename=None, show_lex=False, show_syntax=False, file_name=None):
+    def parse(self, ifilename, ofilename=None, show_lex=False, show_syntax=False, file_name=None, draw_graph=False):
         code_str = None
 
         with open(ifilename, 'r') as fin:
@@ -26,7 +26,7 @@ class CmmParser(object):
         if show_lex:
             self.lparser.check_tokens_2(tokens, file_name=file_name)
 
-        if self.sparser.parse_tokens(tokens, show_syntax=show_syntax, file_name=file_name):
+        if self.sparser.parse_tokens(tokens, show_syntax=show_syntax, file_name=file_name, draw_graph=draw_graph):
             print("Succeeded")
         else:
             print("Failed")
@@ -43,7 +43,7 @@ Options:
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hlsfo:", ["output=", "help", "lex", "syntax", "file"])
+        opts, args = getopt.getopt(argv, "hlsfgo:", ["output=", "help", "lex", "syntax", "file", "graph"])
         
         if len(args) != 1:
             raise Exception
@@ -61,6 +61,7 @@ def main(argv):
     is_show_lex = False
     is_show_syntax = False
     file_name = None
+    draw_graph = False
     
     for opt, arg in opts:
         if opt in ("-o", "--output"):
@@ -73,15 +74,16 @@ def main(argv):
             is_show_syntax = True
         elif opt in ("-f", "--file"):
             file_name = infile.split(".cmm")[0]
+        elif opt in ("-g", "--graph"):
+            draw_graph = True
 
     if not outfile:
         outfile = infile.split(".")
 
-    print(file_name)
-
     parser = CmmParser(LexParser(), SyntaxParser())
 
-    parser.parse(infile, ofilename=outfile, show_lex=is_show_lex, show_syntax=is_show_syntax, file_name=file_name)
+    parser.parse(infile, ofilename=outfile, show_lex=is_show_lex, show_syntax=is_show_syntax, 
+            file_name=file_name, draw_graph=draw_graph)
 
 
 def test():

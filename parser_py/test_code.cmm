@@ -1,25 +1,7 @@
-int f(){
-    
-}
-
 int main(real a)
 {
-    real a = 5;
-    real b = 5;
+    int a = 2;
+    int b = 3;
+    int c = 0;
 
-    if(a == b){
-        if(a > b){
-            a = 2;
-        }
-    }
-
-    real c[10];
-
-    while(a > 0){
-        a = a + 1;
-    }
-
-    c[0] = 1;
-
-    c[1+3] = 2;
 }

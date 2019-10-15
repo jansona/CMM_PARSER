@@ -2,14 +2,21 @@ from subparser.action_table import ActionTable
 from subparser.action_table_data import action_table_data
 from subparser.cmm_token import Token
 import sys
+import graphviz
+from graphviz import Digraph
 
+
+dot = Digraph(comment='The Round Table')
+dot.format = 'png'
 
 class SyntaxParser(object):
 
     def __init__(self):
         pass
 
-    def parse_tokens(self, tokens, show_syntax=False, file_name=None):
+    def parse_tokens(self, tokens, show_syntax=False, file_name=None, draw_graph=False):
+
+        dot.clear()
         
         table = ActionTable(action_table_data)
 
@@ -51,15 +58,31 @@ class SyntaxParser(object):
                 num2reduce = action[1]
 
                 reduce_action_args = []
+
+                new_nodes = []
+
                 for _ in range(num2reduce):
                     reduce_action_args.append(analysis_stack.pop())
+
+                    new_nodes.append(reduce_action_args[-1][1])
+
                 reduce_action_args.reverse()
 
                 # TODO 规约动作暂时没有利用参数
                 token = action[2]()
                 state = table.goto(analysis_stack[-1][0], token)
                 analysis_stack.append((state, token))
+
+                if draw_graph:
+                    dot.node(str(token.count), token.idt)
+
+                    for child in new_nodes:
+                        dot.node(str(child.count), child.idt)
+                        dot.edge(str(token.count), str(child.count))
+
             elif '#' in action[0]:
+                if draw_graph:
+                    dot.render('tree.gv')
                 return True
             else:
                 return False
