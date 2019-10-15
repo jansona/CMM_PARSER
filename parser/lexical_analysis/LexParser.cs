@@ -52,26 +52,9 @@ namespace lexical_analysis
                 else if (Char.IsNumber(c))
                 {
                     string numberStr = "";
-                    double value = 0;
-                    double afterDot = 10;
-                    int flag = 0;//标记是否遇见小数点
                     while (IsNumberDot(c))
                     {
-                        numberStr += c;
-
-                        if (c == '.')
-                        {
-                            flag = 1;
-                        }
-                        if (flag == 0)
-                        {
-                            value = value * 10 + c - '0';
-                        }
-                        else if(c !='.')
-                        {
-                            value += (c - '0') / afterDot;
-                            afterDot *= 10;
-                        }
+                        numberStr += c;             
                         
                         ++i;
                         if (i >= sentence.Length)
@@ -83,7 +66,7 @@ namespace lexical_analysis
 
                     Token numberToken = new Token();
                     numberToken.Id = SigTable.pairs["constnum"];
-                    numberToken.Val = value;
+                    numberToken.Val = numberStr;
                     tokens.Add(numberToken);
 
                     --i;

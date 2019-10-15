@@ -9,7 +9,7 @@ namespace lexical_analysis
         private int id;
         private string name;
         // 作用域
-        private double val;
+        private string val;
         public int Id
         {
             get
@@ -33,7 +33,7 @@ namespace lexical_analysis
                 name = value;
             }
         }
-        public double Val
+        public string Val
         {
             get
             {
@@ -46,4 +46,3 @@ namespace lexical_analysis
         }
     }
 }
-
