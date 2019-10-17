@@ -11,8 +11,12 @@ namespace CMM
 {
     public partial class TreeFrom : Form
     {
-        public TreeFrom()
+        string filePath;
+        string partName;
+        public TreeFrom(string filePath, string partName)
         {
+            this.filePath = filePath;
+            this.partName = partName;
             InitializeComponent();
         }
         private string pathname = string.Empty;     		//定义路径名变量       
@@ -20,7 +24,7 @@ namespace CMM
                     
         private void TreeFrom_Load(object sender, EventArgs e)
         {
-            pathname = ("D:/Coding/GitStore/CMM1/parser_py/test_code.png");   //获得文件的绝对路径
+            pathname = ($"{filePath}{partName}.png");   //获得文件的绝对路径
             this.pictureBox1.Load(pathname);
         }
     }

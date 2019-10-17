@@ -6,12 +6,16 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace CMM
 {
     public partial class CMMParser : Form
     {
-        
+
+        string fileName = "";
+        string filePath = "";
+
         string initialText = "\r\n/* Put your code here. */\r\n\r\n";
 
         public CMMParser()
@@ -20,7 +24,7 @@ namespace CMM
         }
 
         private void CMMParser_Load(object sender, EventArgs e)
-        {            
+        {
             InputTbx.Separators.Add(' ');
             InputTbx.Separators.Add('\t');
             InputTbx.Separators.Add('\n');
@@ -40,7 +44,7 @@ namespace CMM
             InputTbx.Separators.Add('[');
             InputTbx.Separators.Add(']');
 
-            
+
             InputTbx.Text = initialText;
             InputTbx.Focus();
             InputTbx.Select();
@@ -49,10 +53,28 @@ namespace CMM
 
         private void toolStripButtonAnalyze_Click(object sender, EventArgs e)
         {
+            string path = Environment.CurrentDirectory;
+            string cmdStr = $"py {path}\\cmm_parser.py -lsfg {filePath}{fileName} & exit";
+            //Process parseProcess = Process.Start(filePath);
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = "cmd.exe";
+            p.StartInfo.RedirectStandardInput = true;
+            p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.RedirectStandardError = true;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.UseShellExecute = false;
+            p.Start();
+            p.StandardInput.WriteLine(cmdStr);
+
+            string output = p.StandardOutput.ReadLine();
+            p.WaitForExit();
+            p.Close();
+
             if (InputTbx.Text != "" && InputTbx.Text != initialText)
             {
-                OutputRtx1.Text = System.IO.File.ReadAllText(@"D:\Coding\GitStore\CMM1\parser_py\test_code.lex");
-                OutputRtx2.Text = System.IO.File.ReadAllText(@"D:\Coding\GitStore\CMM1\parser_py\test_code.syn");
+                string part_name = fileName.Split('.')[0];
+                OutputRtx1.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.lex");
+                OutputRtx2.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.syn");
                 //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
                 sl_Status.Text = "Analysis done successfully";
             }
@@ -64,7 +86,7 @@ namespace CMM
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void InputTbx_KeyDown(object sender, KeyEventArgs e)
@@ -177,6 +199,12 @@ namespace CMM
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                string fullPath = openFileDialog1.FileName;
+                string[] segments = fullPath.Split('\\');
+                fileName = segments[segments.Length - 1];
+                filePath = fullPath.Remove(fullPath.Length - fileName.Length, fileName.Length);
+                string s = "";
+
                 try
                 {
                     if ((myStream = openFileDialog1.OpenFile()) != null)
@@ -236,7 +264,7 @@ namespace CMM
 
         private void InputTbx_SelectionChanged(object sender, EventArgs e)
         {
-            int row, col=1;
+            int row, col = 1;
             string text = InputTbx.Text.Substring(0, InputTbx.SelectionStart);
             string[] tokens = text.Split(new string[] { "\n" }, StringSplitOptions.None);
             row = tokens.Length;
@@ -247,7 +275,7 @@ namespace CMM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            TreeFrom f2 = new TreeFrom();
+            TreeFrom f2 = new TreeFrom(filePath, fileName.Split('.')[0]);
             f2.Show();
         }
     }

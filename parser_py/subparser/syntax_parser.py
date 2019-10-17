@@ -88,7 +88,8 @@ class SyntaxParser(object):
 
             elif '#' in action[0]:
                 if draw_graph:
-                    dot.render('tree.gv')
+                    print(file_name)
+                    dot.render(file_name)
                 return True
             else:
                 return False
