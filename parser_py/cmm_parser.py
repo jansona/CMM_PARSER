@@ -88,9 +88,9 @@ def main(argv):
 
 def test():
     parser = CmmParser(LexParser(), SyntaxParser())  
-    parser.parse("test_code.cmm", show_lex=True, show_syntax=False)  
+    parser.parse("test_code.cmm", show_lex=True, show_syntax=True)  
 
 
 if __name__ == '__main__':
-    # test()
-    main(sys.argv[1:])
+    test()
+    # main(sys.argv[1:])

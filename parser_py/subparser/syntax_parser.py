@@ -36,8 +36,14 @@ class SyntaxParser(object):
         while i < length:
             token = tokens[i]
             state = analysis_stack[-1][0]
-
-            action = table.action(state, token)
+            
+            try:
+                action = table.action(state, token)
+            except:
+                # TODO 这种处理不妥
+                print("Unexpected token: ")
+                print("line: {}, '{}'".format(token.line, token.idt))
+                exit(1)
 
             if show_syntax:
 

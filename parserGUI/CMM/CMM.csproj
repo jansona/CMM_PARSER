@@ -56,6 +56,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TreeFrom.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TreeFrom.Designer.cs">
+      <DependentUpon>TreeFrom.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="CMMParser.resx">
       <SubType>Designer</SubType>
       <DependentUpon>CMMParser.cs</DependentUpon>
@@ -70,6 +76,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="TreeFrom.resx">
+      <DependentUpon>TreeFrom.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

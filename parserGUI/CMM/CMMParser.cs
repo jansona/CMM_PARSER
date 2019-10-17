@@ -49,7 +49,17 @@ namespace CMM
 
         private void toolStripButtonAnalyze_Click(object sender, EventArgs e)
         {
-            
+            if (InputTbx.Text != "" && InputTbx.Text != initialText)
+            {
+                OutputRtx1.Text = System.IO.File.ReadAllText(@"D:\Coding\GitStore\CMM1\parser_py\test_code.lex");
+                OutputRtx2.Text = System.IO.File.ReadAllText(@"D:\Coding\GitStore\CMM1\parser_py\test_code.syn");
+                //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
+                sl_Status.Text = "Analysis done successfully";
+            }
+            else
+            {
+                MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
@@ -233,6 +243,12 @@ namespace CMM
             if (tokens.Length - 1 >= 0)
                 col = tokens[tokens.Length - 1].Length + 1;
             sl_rowcol.Text = "Row " + row + "  Col " + col;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            TreeFrom f2 = new TreeFrom();
+            f2.Show();
         }
     }
 }
