@@ -47,12 +47,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(795, 824);
+            this.ClientSize = new System.Drawing.Size(821, 850);
             this.Controls.Add(this.pictureBox1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TreeFrom";
             this.Text = "TreeForm";
-            this.Load += new System.EventHandler(this.TreeFrom_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.TreeFrom_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

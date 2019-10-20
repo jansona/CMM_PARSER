@@ -27,5 +27,11 @@ namespace CMM
             pathname = ($"{filePath}{partName}.png");   //获得文件的绝对路径
             this.pictureBox1.Load(pathname);
         }
+
+        private void TreeFrom_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Dispose();
+            this.Close();
+        }
     }
 }
