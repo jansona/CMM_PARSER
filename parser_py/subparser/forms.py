@@ -184,7 +184,8 @@ def reduce_44():
 def reduce_45():
     return Token(idt="W")
 
-# T->t(X)$def reduce_46():
+# T->t(X)
+def reduce_46():
     return Token(idt="T")
 
 forms = [(6, reduce_0), (7, reduce_1), (0, reduce_2), (3, reduce_3), (0, reduce_4), (2, reduce_5), (2, reduce_6), (1, reduce_7), (1, reduce_8), (2, reduce_9), (2, reduce_10), (2, reduce_11), (2, reduce_12), (4, reduce_13), (2, reduce_14), (9, reduce_15), (5, reduce_16), (4, reduce_17), (6, reduce_18), (3, reduce_19), (0, reduce_20), (3, reduce_21), (3, reduce_22), (1, reduce_23), (1, reduce_24), (7, reduce_25), (5, reduce_26), (5, reduce_27), (3, reduce_28), (1, reduce_29), (3, reduce_30), (3, reduce_31), (1, reduce_32), (3, reduce_33), (3, reduce_34), (1, reduce_35), (1, reduce_36), (3, reduce_37), (1, reduce_38), (1, reduce_39), (1, reduce_40), (1, reduce_41), (1, reduce_42), (1, reduce_43), (5, reduce_44), (4, reduce_45), (3, reduce_46)]

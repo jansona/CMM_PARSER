@@ -39,7 +39,7 @@ def generate_forms(filename='forms.txt'):
             else:
                 num2reduce = len(right) - 2
 
-            funcs.append((line, func_str))
+            funcs.append((line[:-1]+'\n', func_str))
             nums.append(num2reduce)
 
     with open("{}.py".format(filename.split(".txt")[0]), 'w') as fout:
