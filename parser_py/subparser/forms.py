@@ -83,10 +83,13 @@ def reduce_6(*args):
 def reduce_7(*args):
     I = args[0]
     L = Token(idt="L")
+    backpatch(I.nextlist, nextstm)
     return L
 
 # L->A
 def reduce_8(*args):
+    A = args[0]
+    backpatch(A.nextlist, nextstm)
     return Token(idt="L")
 
 # L->W;
@@ -110,7 +113,7 @@ def reduce_13(*args):
     E = args[0]
     d = args[1]
     X = args[3]
-    d.place = newtemp()
+    d.place = d.name
     gen('new', X.place, None, d.place)
     return Token(idt="F")
 
@@ -118,7 +121,7 @@ def reduce_13(*args):
 def reduce_14(*args):
     E = args[0]
     d = args[1]
-    d.place = newtemp()
+    d.place = d.name
     gen('new', 0, None, d.place)
     return Token(idt="F")
 
@@ -150,6 +153,7 @@ def reduce_20(*args):
 def reduce_21(*args):
     d = args[0]
     X = args[2]
+    d.place = d.name
     gen('=', X.place, None, d.place)
     return Token(idt="F")
 
@@ -199,7 +203,9 @@ def reduce_29(*args):
 
 # H->@
 def reduce_30(*args):
-    return Token(idt="H")
+    H = Token(idt="H")
+    H.gotostm = nextstm
+    return H
 
 # O->XSX
 def reduce_31(*args):
@@ -303,6 +309,7 @@ def reduce_43(*args):
 def reduce_44(*args):
     d = args[0]
     R = Token(idt="R")
+    d.place = d.name
     R.place = d.place
     return R
 
@@ -323,7 +330,16 @@ def reduce_46(*args):
 
 # A->w(MO)HB
 def reduce_47(*args):
-    return Token(idt="A")
+    M = args[2]
+    O = args[3]
+    H = args[5]
+    B = args[6]
+    backpatch(B.nextlist, M.gotostm)
+    backpatch(O.truelist, H.gotostm)
+    A = Token(idt="A")
+    A.nextlist += O.falselist
+    gen('j', None, None, M.gotostm)
+    return A
 
 # W->e(X)
 def reduce_48(*args):

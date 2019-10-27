@@ -92,7 +92,7 @@ def test():
     parser.parse("test_code.cmm", show_lex=False, show_syntax=True)  
 
     for index, cmd in enumerate(commands):
-        print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, cmd.arg0, str(cmd.arg1), str(cmd.result)))
+        print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
 
 
 if __name__ == '__main__':
