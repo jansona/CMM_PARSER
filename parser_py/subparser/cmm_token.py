@@ -13,3 +13,9 @@ class Token(object):
 
         self.count = Token.count
         Token.count += 1
+
+        self.place = None
+        self.code = []
+        self.truelist = []
+        self.falselist = []
+        self.nextlist = []

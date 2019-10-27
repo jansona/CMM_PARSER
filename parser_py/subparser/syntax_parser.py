@@ -5,6 +5,7 @@ from subparser.action_table import ActionTable
 from subparser.action_table_data import action_table_data
 from subparser.cmm_token import Token
 from subparser.auto_table_generator import replace_symbol_reverse
+from subparser.forms import commands
 
 
 dot = Digraph(comment='The Round Table')
@@ -64,17 +65,20 @@ class SyntaxParser(object):
             elif 'r' is action[0]:
                 num2reduce = action[1]
 
-                reduce_action_args = dict()
+                reduce_action_args = []
 
                 new_nodes = []
 
                 for _ in range(num2reduce):
                     pop_token = analysis_stack.pop()[1]
-                    reduce_action_args[replace_symbol_reverse(pop_token.idt)] = pop_token
+                    # reduce_action_args[replace_symbol_reverse(pop_token.idt)] = pop_token
+                    reduce_action_args.append(pop_token)
 
                     new_nodes.append(pop_token)
 
-                token = action[2](**reduce_action_args)
+                reduce_action_args.reverse()
+
+                token = action[2](*reduce_action_args)
                 state = table.goto(analysis_stack[-1][0], token)
                 analysis_stack.append((state, token))
 

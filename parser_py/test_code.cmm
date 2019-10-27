@@ -1,6 +1,9 @@
 int main()
 {
-    int a = 2;
-    int b = 3;
-    int c;
+    int a = 0;
+    int b = 1;
+
+    if(1 < 2){
+        write(b);
+    }
 }

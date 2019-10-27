@@ -78,6 +78,10 @@ def generate_actions(filename='action_goto.txt'):
             token_idt = replace_symbol(token_idt)
 
             state = eval(state)
+
+            if state == 92:
+                print()
+
             action = eval(action)
 
             if action == 0:
@@ -90,7 +94,7 @@ def generate_actions(filename='action_goto.txt'):
             else:
                 actions[state] = {token_idt: action}
         
-        with open("actions.py", 'w') as fout:
+        with open("./subparser/actions.py", 'w') as fout:
             fout.write("action_part = " + str(actions))
 
 def generate_gotos(filename='action_goto.txt'):
@@ -119,10 +123,10 @@ def generate_gotos(filename='action_goto.txt'):
             else:
                 gotos[state] = {token_idt: action}
         
-        with open("gotos.py", 'w') as fout:
+        with open("./subparser/gotos.py", 'w') as fout:
             fout.write("goto_part = " + str(gotos))
 
 if __name__ == "__main__":
     generate_forms(filename="./subparser/forms.txt")
-    # generate_actions()
-    # generate_gotos()
+    generate_actions(filename="./subparser/action_goto.txt")
+    generate_gotos(filename="./subparser/action_goto.txt")
