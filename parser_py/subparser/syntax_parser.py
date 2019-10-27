@@ -1,9 +1,10 @@
-from subparser.action_table import ActionTable
-from subparser.action_table_data import action_table_data
-from subparser.cmm_token import Token
 import sys
 import graphviz
 from graphviz import Digraph
+from subparser.action_table import ActionTable
+from subparser.action_table_data import action_table_data
+from subparser.cmm_token import Token
+from subparser.auto_table_generator import replace_symbol_reverse
 
 
 dot = Digraph(comment='The Round Table')
@@ -63,19 +64,17 @@ class SyntaxParser(object):
             elif 'r' is action[0]:
                 num2reduce = action[1]
 
-                reduce_action_args = []
+                reduce_action_args = dict()
 
                 new_nodes = []
 
                 for _ in range(num2reduce):
-                    reduce_action_args.append(analysis_stack.pop())
+                    pop_token = analysis_stack.pop()[1]
+                    reduce_action_args[replace_symbol_reverse(pop_token.idt)] = pop_token
 
-                    new_nodes.append(reduce_action_args[-1][1])
+                    new_nodes.append(pop_token)
 
-                reduce_action_args.reverse()
-
-                # TODO 规约动作暂时没有利用参数
-                token = action[2]()
+                token = action[2](**reduce_action_args)
                 state = table.goto(analysis_stack[-1][0], token)
                 analysis_stack.append((state, token))
 

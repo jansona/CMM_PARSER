@@ -1,4 +1,6 @@
 from subparser.cmm_token import Token
+from subparser.identity_table import idt_table
+
 
 # P->Ed()BP
 def reduce_0(**args):
@@ -54,10 +56,17 @@ def reduce_12(**args):
 
 # F->Ed=X
 def reduce_13(**args):
+    E = args['E']
+    d = args['d']
+    X = args['X']
+    idt_table.add_item(name=d.name, idt_type=E.value, value=X.value)
     return Token(idt="F")
 
 # F->Ed
 def reduce_14(**args):
+    E = args['E']
+    d = args['d']
+    idt_table.add_item(name=d.name, idt_type=E.value)
     return Token(idt="F")
 
 # F->Ed[X]={N}
@@ -94,11 +103,13 @@ def reduce_22(**args):
 
 # E->r
 def reduce_23(**args):
-    return Token(idt="E")
+    r = args['r']
+    return Token(idt="E", value=r.idt)
 
 # E->i
 def reduce_24(**args):
-    return Token(idt="E")
+    i = args['i']
+    return Token(idt="E", value=i.idt)
 
 # I->f(O)BsB
 def reduce_25(**args):
@@ -118,7 +129,8 @@ def reduce_28(**args):
 
 # X->G
 def reduce_29(**args):
-    return Token(idt="X")
+    G = args['G']
+    return Token(idt="X", value=G.value)
 
 # X->X+G
 def reduce_30(**args):
@@ -130,7 +142,8 @@ def reduce_31(**args):
 
 # G->R
 def reduce_32(**args):
-    return Token(idt="G")
+    R = args['R']
+    return Token(idt="G", value=R.value)
 
 # G->G*R
 def reduce_33(**args):
@@ -142,15 +155,18 @@ def reduce_34(**args):
 
 # R->d
 def reduce_35(**args):
-    return Token(idt="R")
+    d = args['d']
+    return Token(idt="R", value=d.value)
 
 # R->n
 def reduce_36(**args):
-    return Token(idt="R")
+    n = args['n']
+    return Token(idt="R", value=n.value)
 
 # R->(X)
 def reduce_37(**args):
-    return Token(idt="R")
+    X = args['X']
+    return Token(idt="R", value=X.value)
 
 # S-><
 def reduce_38(**args):

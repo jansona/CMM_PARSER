@@ -1,5 +1,4 @@
 replace_dict = {
-    'm': 'identity',
     '.': '<=',
     ',': '>=',
     'i': 'int',
@@ -21,6 +20,13 @@ replace_dict = {
 def replace_symbol(c):
     if c in replace_dict.keys():
         return replace_dict[c]
+    return c
+
+def replace_symbol_reverse(c):
+    for key in replace_dict.keys():
+        if replace_dict[key] == c:
+            return key
+    
     return c
 
 def generate_forms(filename='forms.txt'):
