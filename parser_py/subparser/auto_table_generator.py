@@ -32,14 +32,14 @@ def generate_forms(filename='forms.txt'):
         for (i, line) in enumerate(fin):
             left, right = line.split("->")
 
-            func_str = 'def reduce_{}():\n'.format(str(i)) + ' '*4 + 'return Token(idt="{}")\n'.format(left)
+            func_str = 'def reduce_{}(**args):\n'.format(str(i)) + ' '*4 + 'return Token(idt="{}")\n'.format(left)
             print(right)
             if '@' in right:
                 num2reduce = 0
             else:
                 num2reduce = len(right) - 2
 
-            funcs.append((line[:-1]+'\n', func_str))
+            funcs.append((line[:-1].replace('$', "")+'\n', func_str))
             nums.append(num2reduce)
 
     with open("{}.py".format(filename.split(".txt")[0]), 'w') as fout:
@@ -47,7 +47,7 @@ def generate_forms(filename='forms.txt'):
         for form, func in funcs:
             fout.write('# ' + form + func + "\n")
 
-        func_names = [func.split('()')[0].split(" ")[1] for _, func in funcs]
+        func_names = [func.split('(**args)')[0].split(" ")[1] for _, func in funcs]
 
         forms = [(num, func) for num, func in zip(nums, func_names)]
 
