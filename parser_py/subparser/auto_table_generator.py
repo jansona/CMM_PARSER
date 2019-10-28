@@ -29,6 +29,54 @@ def replace_symbol_reverse(c):
     
     return c
 
+import_str = """
+from subparser.cmm_token import Token
+
+
+ASSIGN = "{},=,{}"
+LESS_ASSIGN = "{},=,{},<,{}"
+
+class Quadruple(object):
+
+    def __init__(self, op, arg0, arg1, result):
+        self.op = op
+        self.arg0 = arg0
+        self.arg1 = arg1
+        self.result = result
+
+nextstm = 0
+codes = []
+
+commands = []
+
+def gen(op, arg0, arg1, result):
+    global nextstm
+    nextstm += 1
+    cmd = Quadruple(op, arg0, arg1, result)
+    commands.append(cmd)
+
+    return cmd
+
+def generate():
+    temp_count = 0
+
+    def newtemp():
+        nonlocal temp_count
+        name = "0t{}".format(temp_count)
+        temp_count += 1
+        return name
+    
+    return newtemp
+
+newtemp = generate()
+
+def backpatch(j_cmds, stm):
+
+    for cmd in j_cmds:
+        cmd.result = stm
+
+"""
+
 def generate_forms(filename='forms.txt'):
 
     funcs = []
@@ -38,7 +86,7 @@ def generate_forms(filename='forms.txt'):
         for (i, line) in enumerate(fin):
             left, right = line.split("->")
 
-            func_str = 'def reduce_{}(**args):\n'.format(str(i)) + ' '*4 + 'return Token(idt="{}")\n'.format(left)
+            func_str = 'def reduce_{}(*args):\n'.format(str(i)) + ' '*4 + 'return Token(idt="{}")\n'.format(left)
             print(right)
             if '@' in right:
                 num2reduce = 0
@@ -49,11 +97,11 @@ def generate_forms(filename='forms.txt'):
             nums.append(num2reduce)
 
     with open("{}.py".format(filename.split(".txt")[0]), 'w') as fout:
-        fout.write("from subparser.cmm_token import Token\n\n")
+        fout.write(import_str)
         for form, func in funcs:
             fout.write('# ' + form + func + "\n")
 
-        func_names = [func.split('(**args)')[0].split(" ")[1] for _, func in funcs]
+        func_names = [func.split('(*args)')[0].split(" ")[1] for _, func in funcs]
 
         forms = [(num, func) for num, func in zip(nums, func_names)]
 

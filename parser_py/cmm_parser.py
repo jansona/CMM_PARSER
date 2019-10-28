@@ -93,7 +93,7 @@ def main(argv):
 
 def test():
     parser = CmmParser(LexParser(), SyntaxParser())  
-    parser.parse("test_code.cmm", show_lex=False, show_syntax=True)  
+    parser.parse("test_code.cmm", show_lex=True, show_syntax=True)  
 
     for index, cmd in enumerate(commands):
         print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))

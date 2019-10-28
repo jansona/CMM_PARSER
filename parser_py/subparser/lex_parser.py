@@ -75,7 +75,7 @@ class LexParser(object):
                 if char is '\n':
                     line += 1
                 pass
-            elif char in r"+->(){}[];":
+            elif char in r"+->(){}[];,":
                 sig_token = Token(idt=STD[char])
                 tokens.append(sig_token)
             elif char in r"*/=<":
@@ -105,6 +105,9 @@ class LexParser(object):
                     token = Token(idt=STD[char], line=line)
 
                 tokens.append(token)
+            else:
+                raise Exception("未定义的字符")
+                exit(1)
 
             i += 1
 

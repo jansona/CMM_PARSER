@@ -28,6 +28,7 @@ SIG_TABLE_DICT = {
     'identity' : 26,
     '#': 27,
     'comment': 28,
+    ',': 29
 }
 
 INT = 0
