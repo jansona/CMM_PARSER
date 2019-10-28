@@ -1,5 +1,5 @@
 from subparser.cmm_token import Token
-from subparser.identity_table import idt_table
+# from subparser.identity_table import idt_table
 
 
 ASSIGN = "{},=,{}"
@@ -31,7 +31,7 @@ def generate():
 
     def newtemp():
         nonlocal temp_count
-        name = "v{}".format(temp_count)
+        name = "0t{}".format(temp_count)
         temp_count += 1
         return name
     
@@ -114,7 +114,8 @@ def reduce_13(*args):
     d = args[1]
     X = args[3]
     d.place = d.name
-    gen('new', X.place, None, d.place)
+    gen('new', E.value, None, d.place)
+    gen('=', X.place, None, d.place)
     return Token(idt="F")
 
 # F->Ed
@@ -122,7 +123,8 @@ def reduce_14(*args):
     E = args[0]
     d = args[1]
     d.place = d.name
-    gen('new', 0, None, d.place)
+    gen('new', E.value, None, d.place)
+    gen('=', 0, None, d.place)
     return Token(idt="F")
 
 # F->Ed[X]={N}
@@ -131,14 +133,27 @@ def reduce_15(*args):
 
 # F->Ed[X]
 def reduce_16(*args):
-    return Token(idt="F")
+    E = args[0]
+    d = args[1]
+    X = args[3]
+    F = Token(idt="F")
+    gen('newa', E.value, X.place, d.place)
+    return F
 
 # F->d[X]
 def reduce_17(*args):
-    return Token(idt="F")
+    d = args[0]
+    X = args[2]
+    F = Token(idt="F")
+    # TODO: implement
+    return F
 
 # F->d[X]=n
 def reduce_18(*args):
+    d = args[0]
+    X = args[2]
+    n = args[5]
+    gen('[]=', d.place, X.place, n.place)
     return Token(idt="F")
 
 # N->n`N
@@ -287,8 +302,8 @@ def reduce_39(*args):
     G = args[2]
     X = Token(idt="X")
     X.place = newtemp()
-    gen('+', X0.place, G.place,X.place)
-    return Token(idt="X")
+    gen('+', X0.place, G.place, X.place)
+    return X
 
 # X->X-G
 def reduce_40(*args):
@@ -372,4 +387,4 @@ def reduce_49(*args):
     gen('write', X.place, None, None)
     return Token(idt="T")
 
-forms = [(6, reduce_0), (7, reduce_1), (0, reduce_2), (3, reduce_3), (0, reduce_4), (2, reduce_5), (2, reduce_6), (1, reduce_7), (1, reduce_8), (2, reduce_9), (2, reduce_10), (2, reduce_11), (2, reduce_12), (4, reduce_13), (2, reduce_14), (9, reduce_15), (5, reduce_16), (4, reduce_17), (6, reduce_18), (3, reduce_19), (0, reduce_20), (3, reduce_21), (3, reduce_22), (1, reduce_23), (1, reduce_24), (10, reduce_25), (6, reduce_26), (6, reduce_27), (0, reduce_28), (0, reduce_29), (0, reduce_30), (3, reduce_31), (1, reduce_32), (1, reduce_33), (1, reduce_34), (1, reduce_35), (1, reduce_36), (1, reduce_37), (1, reduce_38), (3, reduce_39), (3, reduce_40), (1, reduce_41), (3, reduce_42), (3, reduce_43), (1, reduce_44), (1, reduce_45), (3, reduce_46), (7, reduce_47), (4, reduce_48), (3, reduce_49)]
+forms = [(6, reduce_0), (7, reduce_1), (0, reduce_2), (3, reduce_3), (0, reduce_4), (2, reduce_5), (2, reduce_6), (1, reduce_7), (1, reduce_8), (2, reduce_9), (2, reduce_10), (2, reduce_11), (2, reduce_12), (4, reduce_13), (2, reduce_14), (9, reduce_15), (5, reduce_16), (4, reduce_17), (6, reduce_18), (3, reduce_19), (0, reduce_20), (3, reduce_21), (3, reduce_22), (1, reduce_23), (1, reduce_24), (10, reduce_25), (6, reduce_26), (6, reduce_27), (0, reduce_28), (0, reduce_29), (0, reduce_30), (3, reduce_31), (1, reduce_32), (1, reduce_33), (1, reduce_34), (1, reduce_35), (1, reduce_36), (1, reduce_37), (1, reduce_38), (3, reduce_39), (3, reduce_40), (1, reduce_41), (3, reduce_42), (3, reduce_43), (1, reduce_44), (1, reduce_45), (3, reduce_46), (7, reduce_47), (4, reduce_48), (4, reduce_49)]

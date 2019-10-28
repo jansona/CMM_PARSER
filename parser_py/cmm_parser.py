@@ -3,6 +3,7 @@ from subparser.sig_table import get_key
 from subparser.lex_parser import LexParser
 from subparser.syntax_parser import SyntaxParser
 from subparser.forms import commands
+from subparser.inter_runner import InterRunner
 
 
 class CmmParser(object):
@@ -86,6 +87,9 @@ def main(argv):
     parser.parse(infile, ofilename=outfile, show_lex=is_show_lex, show_syntax=is_show_syntax, 
             file_name=file_name, draw_graph=draw_graph)
 
+    runner = InterRunner()
+    runner(commands)
+
 
 def test():
     parser = CmmParser(LexParser(), SyntaxParser())  
@@ -93,6 +97,9 @@ def test():
 
     for index, cmd in enumerate(commands):
         print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
+
+    runner = InterRunner()
+    runner(commands)
 
 
 if __name__ == '__main__':

@@ -4,7 +4,7 @@ class TableItem(object):
 
     def __init__(self, name=None, idt_type=None, value=None, domain=None):
         self.name = name
-        self.type = idt_type
+        self.idt_type = idt_type
         self.value = value
         self.domain = domain
 
@@ -30,11 +30,13 @@ class Table(object):
         # TODO 暂时这么写
         return items[0]
 
+    def has_item(self, name=None, domain=None):
+
+        return name in self.table.keys()
+
     def show(self):
 
         for idt_name in self.table.keys():
             print(idt_name)
             print(self.table[idt_name])
 
-
-idt_table = Table()
