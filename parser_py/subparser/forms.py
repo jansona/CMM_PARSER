@@ -175,7 +175,17 @@ def reduce_24(*args):
 
 # I->f(O)MBNsHB
 def reduce_25(*args):
-    return Token(idt="I")
+    O = args[2]
+    M = args[4]
+    B0 = args[5]
+    N = args[6]
+    H = args[8]
+    B1 = args[9]
+    I = Token(idt="I")
+    backpatch(O.truelist, M.gotostm)
+    backpatch(O.falselist, H.gotostm)
+    I.nextlist += (B0.nextlist + N.nextlist + B1.nextlist)
+    return I
 
 # I->f(O)MB
 def reduce_26(*args):
@@ -189,7 +199,13 @@ def reduce_26(*args):
 
 # I->f(O)ML
 def reduce_27(*args):
-    return Token(idt="I")
+    O = args[2]
+    M = args[4]
+    L = args[5]
+    I = Token(idt="I")
+    backpatch(O.truelist, M.gotostm)
+    I.nextlist += O.falselist + L.nextlist
+    return I
 
 # M->@
 def reduce_28(*args):
@@ -199,7 +215,10 @@ def reduce_28(*args):
 
 # N->@
 def reduce_29(*args):
-    return Token(idt="N")
+    j_command = gen('j', None, None, None)
+    N = Token(idt="N")
+    N.nextlist += [j_command]
+    return N
 
 # H->@
 def reduce_30(*args):
@@ -214,7 +233,7 @@ def reduce_31(*args):
     X1 = args[2]
     O = Token(idt="O")
     js_command = gen(S.value, X0.place, X1.place, None)
-    j_command = gen('j', X0.place, X1.place, None)
+    j_command = gen('j', None, None, None)
     O.truelist.append(js_command)
     O.falselist.append(j_command)
     return O

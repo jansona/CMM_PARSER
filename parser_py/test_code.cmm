@@ -1,13 +1,10 @@
 int main()
 {
-    int a = 1;
-    int b = 2;
-
-    if(1 < 2){
-        b = 6;
+    if(a < 2){
+        a = 2;
+    }else{
+        a = 3;
     }
 
-    while(b < 100){
-        b = a + b;
-    }
+    read(a);
 }
