@@ -5,6 +5,18 @@ from subparser.forms import Quadruple
 idt_table = Table()
 
 
+def address_search(*args):
+
+    new_args = []
+    for arg in args:
+        if (arg is not None and type(arg) is not int) and '+' in arg:
+            address = arg.split('+')[1]
+            if not str.isdigit(address):
+                arg = arg.split('+')[0] + '+' + idt_table.get_item(address).value
+        new_args.append(arg)
+
+    return new_args
+
 def get_val_from_table(arg):
     if idt_table.has_item(arg):
         return idt_table.get_item(arg).value
@@ -93,6 +105,30 @@ def jbigger(arg1, arg2, arg3):
     if eval(left.value) > eval(right.value):
         return arg3
 
+def jle(arg1, arg2, arg3):
+
+    left = idt_table.get_item(name=arg1)
+    right = idt_table.get_item(name=arg2)
+
+    if eval(left.value) <= eval(right.value):
+        return arg3
+
+def jbe(arg1, arg2, arg3):
+
+    left = idt_table.get_item(name=arg1)
+    right = idt_table.get_item(name=arg2)
+
+    if eval(left.value) >= eval(right.value):
+        return arg3
+
+def jne(arg1, arg2, arg3):
+
+    left = idt_table.get_item(name=arg1)
+    right = idt_table.get_item(name=arg2)
+
+    if eval(left.value) != eval(right.value):
+        return arg3
+
 def write(arg1, arg2, arg3):
 
     var = idt_table.get_item(name=arg1)
@@ -116,7 +152,10 @@ running_actions = {
     'write': write,
     'read': read,
     '<': jless,
-    '>': jbigger
+    '>': jbigger,
+    '<>': jne,
+    '>=': jbe,
+    '<=': jle,
 }
 
 class InterRunner(object):
@@ -138,7 +177,8 @@ class InterRunner(object):
 
             operation = running_actions[cmd.op]
 
-            address = operation(cmd.arg0, cmd.arg1, cmd.result)
+            arg1, arg2, arg3 = address_search(cmd.arg0, cmd.arg1, cmd.result)
+            address = operation(arg1, arg2, arg3)
 
             if address is not None:
                 i = address

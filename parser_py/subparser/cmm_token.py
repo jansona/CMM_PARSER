@@ -19,3 +19,4 @@ class Token(object):
         self.truelist = []
         self.falselist = []
         self.nextlist = []
+        self.gotostm = None

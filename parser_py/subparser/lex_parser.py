@@ -75,10 +75,10 @@ class LexParser(object):
                 if char is '\n':
                     line += 1
                 pass
-            elif char in r"+->(){}[];,":
+            elif char in r"+-(){}[];,":
                 sig_token = Token(idt=STD[char])
                 tokens.append(sig_token)
-            elif char in r"*/=<":
+            elif char in r"*/=<>":
                 sig_str = char + sentence[i+1]
 
                 token = None
