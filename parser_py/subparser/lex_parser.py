@@ -73,10 +73,10 @@ class LexParser(object):
                 i -= 1
             elif str.isspace(char):
                 if char is '\n':
-                    line += 1
+                    line += 0.5         # 这里注意！！！ 我真是服了，windows下结尾两个\n
                 pass
             elif char in r"+-(){}[];,":
-                sig_token = Token(idt=STD[char])
+                sig_token = Token(idt=STD[char], line=line)
                 tokens.append(sig_token)
             elif char in r"*/=<>":
                 sig_str = char + sentence[i+1]
@@ -111,7 +111,7 @@ class LexParser(object):
 
             i += 1
 
-        tokens.append(Token(idt=STD['#']))
+        tokens.append(Token(idt=STD['#'], line=line))
         return tokens
 
     # @staticmethod

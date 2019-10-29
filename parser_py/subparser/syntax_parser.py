@@ -5,7 +5,7 @@ from subparser.action_table import ActionTable
 from subparser.action_table_data import action_table_data
 from subparser.cmm_token import Token
 from subparser.auto_table_generator import replace_symbol_reverse
-from subparser.forms import commands
+from subparser.forms import commands, Quadruple, gen
 
 
 dot = Digraph(comment='The Round Table')
@@ -16,7 +16,7 @@ class SyntaxParser(object):
     def __init__(self):
         pass
 
-    def parse_tokens(self, tokens, show_syntax=False, file_name=None, draw_graph=False):
+    def parse_tokens(self, tokens, show_syntax=False, file_name=None, draw_graph=False, checkpoints=[]):
 
         dot.clear()
         
@@ -34,10 +34,26 @@ class SyntaxParser(object):
             outstream = fout
         else:
             outstream = sys.stdout
+
+        line = 1
+        temp_str = ""
         
         while i < length:
             token = tokens[i]
             state = analysis_stack[-1][0]
+
+            # 加入断点
+            if line == token.line:
+                temp_str += (" " + token.idt)
+            else:
+                gen('step', None, None, None)
+                line = token.line
+
+            if int(token.line) in checkpoints:
+                # commands.append(Quadruple('check', None, None, None))
+                gen('check', None, None, None)
+                checkpoints.remove(token.line)
+            # end
             
             try:
                 action = table.action(state, token)

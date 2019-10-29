@@ -16,7 +16,7 @@ class CmmParser(object):
         for token in tokens:
             token.idt = get_key(token.idt)[0]
 
-    def parse(self, ifilename, ofilename=None, show_lex=False, show_syntax=False, file_name=None, draw_graph=False):
+    def parse(self, ifilename, ofilename=None, show_lex=False, show_syntax=False, file_name=None, draw_graph=False, checkpoints=[]):
         code_str = None
 
         with open(ifilename, 'r') as fin:
@@ -28,7 +28,7 @@ class CmmParser(object):
         if show_lex:
             self.lparser.check_tokens_2(tokens, file_name=file_name)
 
-        if self.sparser.parse_tokens(tokens, show_syntax=show_syntax, file_name=file_name, draw_graph=draw_graph):
+        if self.sparser.parse_tokens(tokens, show_syntax=show_syntax, file_name=file_name, draw_graph=draw_graph, checkpoints=checkpoints):
             print("Succeeded")
         else:
             print("Failed")
@@ -41,11 +41,12 @@ Options:
     -l, --lex    Show the intermediate result of the lex parsing
     -s, --syntax Show the process of the syntax parsing
     -f, --file   Write the intermediate result to a file with the name same as the source file
+    -c, --check=[n,...]  Set the checkpoints
 """
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hlsfgo:", ["output=", "help", "lex", "syntax", "file", "graph"])
+        opts, args = getopt.getopt(argv, "hlsfgo:c:", ["check=", "output=", "help", "lex", "syntax", "file", "graph"])
         
         if len(args) != 1:
             raise Exception
@@ -64,6 +65,7 @@ def main(argv):
     is_show_syntax = False
     file_name = None
     draw_graph = False
+    checkpoints = []
     
     for opt, arg in opts:
         if opt in ("-o", "--output"):
@@ -78,6 +80,8 @@ def main(argv):
             file_name = infile.split(".cmm")[0]
         elif opt in ("-g", "--graph"):
             draw_graph = True
+        elif opt in ("-c", "--check"):
+            checkpoints = eval(arg)
 
     if not outfile:
         outfile = infile.split(".")
@@ -85,7 +89,7 @@ def main(argv):
     parser = CmmParser(LexParser(), SyntaxParser())
 
     parser.parse(infile, ofilename=outfile, show_lex=is_show_lex, show_syntax=is_show_syntax, 
-            file_name=file_name, draw_graph=draw_graph)
+            file_name=file_name, draw_graph=draw_graph, checkpoints=checkpoints)
 
     runner = InterRunner()
     runner(commands)
@@ -93,7 +97,7 @@ def main(argv):
 
 def test():
     parser = CmmParser(LexParser(), SyntaxParser())  
-    parser.parse("test_code.cmm", show_lex=True, show_syntax=True)  
+    parser.parse("test_code.cmm", show_lex=False, show_syntax=False)  
 
     for index, cmd in enumerate(commands):
         print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
@@ -103,5 +107,5 @@ def test():
 
 
 if __name__ == '__main__':
-    test()
-    # main(sys.argv[1:])
+    # test()
+    main(sys.argv[1:])

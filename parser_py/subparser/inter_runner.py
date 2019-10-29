@@ -1,9 +1,15 @@
+import os
 from subparser.identity_table import TableItem, Table
 from subparser.forms import Quadruple
 
 
 idt_table = Table()
 
+def write_args_to_file(arg_dict):
+    with open("./temp_dict", 'w') as fout:
+        for key, value in arg_dict.items():
+            for item in value:
+                fout.write("name: {}, type: {}, value: {}, domain: {}\n".format(item.name, item.idt_type, item.value, item.domain))
 
 def address_search(*args):
 
@@ -139,6 +145,17 @@ def read(arg1, arg2, arg3):
 
     var = idt_table.get_item(name=arg1)
     var.value = input("Please input the value of {}:".format(var.name))
+
+def check(arg1, arg2, arg3):
+    write_args_to_file(idt_table.table)
+    order = input("Enter 's' to check step by step: ")
+    if order == 's':
+        return -2
+
+def step(arg1, arg2, arg3):
+    order = input("Enter 'q' to quit checking step by step: ")
+    if order == 'q':
+        return -1
     
 
 running_actions = {
@@ -156,6 +173,8 @@ running_actions = {
     '<>': jne,
     '>=': jbe,
     '<=': jle,
+    'check': check,
+    'step': step
 }
 
 class InterRunner(object):
@@ -164,7 +183,7 @@ class InterRunner(object):
 
         self.table = Table()
 
-    def __call__(self, commands):
+    def __call__(self, commands, step=False):
 
         i = 0
         length = len(commands)
@@ -175,13 +194,21 @@ class InterRunner(object):
 
             # print(cmd.op, cmd.arg0, cmd.arg1, cmd.result)
 
+            if cmd.op == 'step' and not step:
+                i += 1
+                continue
+
             operation = running_actions[cmd.op]
 
             arg1, arg2, arg3 = address_search(cmd.arg0, cmd.arg1, cmd.result)
             address = operation(arg1, arg2, arg3)
 
-            if address is not None:
+            if address == -1:
+                step = False
+            elif address == -2:
+                step = True
+            elif address is not None:
                 i = address
-            else:
-                i += 1
+                continue
+            i += 1
 
