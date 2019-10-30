@@ -100,7 +100,7 @@ class SyntaxParser(object):
 
                 if draw_graph:
                     dot.node(str(token.count), token.idt)
-
+                    new_nodes.reverse()
                     for child in new_nodes:
                         dot.node(str(child.count), child.idt)
                         dot.edge(str(token.count), str(child.count))

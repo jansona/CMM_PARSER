@@ -82,6 +82,7 @@ def main(argv):
         elif opt in ("-f", "--file"):
             file_name = infile.split(".cmm")[0]
         elif opt in ("-g", "--graph"):
+            file_name = infile.split(".cmm")[0]
             draw_graph = True
         elif opt in ("-c", "--check"):
             checkpoints = eval(arg)
@@ -106,7 +107,7 @@ def main(argv):
 
 def test():
     parser = CmmParser(LexParser(), SyntaxParser())  
-    parser.parse("test_code.cmm", show_lex=False, show_syntax=False)  
+    parser.parse("show_code/bubble_sort.cmm", show_lex=False, show_syntax=False)  
 
     for index, cmd in enumerate(commands):
         print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
