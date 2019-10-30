@@ -88,6 +88,10 @@ class LexParser(object):
                     find_right_comment = False
                     while i < length-1:
                         two_char = sentence[i:i+2]
+
+                        if two_char == "\n\n":
+                            line += 1
+
                         if two_char in ("*/",):
                             find_right_comment = True
                             i += 2

@@ -37,16 +37,18 @@ class CmmParser(object):
 help_str = """
 Usage: python cmm_parser.py source_file [options]
 Options:
-    -h, --help   Show this help
-    -l, --lex    Show the intermediate result of the lex parsing
-    -s, --syntax Show the process of the syntax parsing
-    -f, --file   Write the intermediate result to a file with the name same as the source file
-    -c, --check=[n,...]  Set the checkpoints
+    -h, --help           Show this help
+    -l, --lex            Show the intermediate result of the lex parsing
+    -s, --syntax         Show the process of the syntax parsing
+    -f, --file           Write the intermediate result to a file with the name same as the source file
+    -c, --check [n,...]  Set the checkpoints
+    -g, --graph          Generate the tree of syntax
+    -i, --intercode      Show the intermediate code 
 """
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hlsfgo:c:", ["check=", "output=", "help", "lex", "syntax", "file", "graph"])
+        opts, args = getopt.getopt(argv, "hlsfgio:c:", ["check=", "output=", "help", "lex", "syntax", "file", "graph", "intercode"])
         
         if len(args) != 1:
             raise Exception
@@ -66,6 +68,7 @@ def main(argv):
     file_name = None
     draw_graph = False
     checkpoints = []
+    inter_code = False
     
     for opt, arg in opts:
         if opt in ("-o", "--output"):
@@ -82,6 +85,8 @@ def main(argv):
             draw_graph = True
         elif opt in ("-c", "--check"):
             checkpoints = eval(arg)
+        elif opt in ("-i", "--intercode"):
+            inter_code = True
 
     if not outfile:
         outfile = infile.split(".")
@@ -90,6 +95,10 @@ def main(argv):
 
     parser.parse(infile, ofilename=outfile, show_lex=is_show_lex, show_syntax=is_show_syntax, 
             file_name=file_name, draw_graph=draw_graph, checkpoints=checkpoints)
+
+    if inter_code:
+        for index, cmd in enumerate(commands):
+            print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
 
     runner = InterRunner()
     runner(commands)

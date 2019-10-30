@@ -200,6 +200,9 @@ class InterRunner(object):
 
             operation = running_actions[cmd.op]
 
+            # debug_cmd = commands[i]
+            # print("command {}: {}, {}".format(i, commands[i].op, commands[i].result))
+
             arg1, arg2, arg3 = address_search(cmd.arg0, cmd.arg1, cmd.result)
             address = operation(arg1, arg2, arg3)
 
