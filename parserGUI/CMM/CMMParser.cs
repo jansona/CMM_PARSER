@@ -54,7 +54,7 @@ namespace CMM
         private void toolStripButtonAnalyze_Click(object sender, EventArgs e)
         {
             string path = Environment.CurrentDirectory;
-            string cmdStr = $"py {path}\\cmm_parser.py -lsfg {filePath}{fileName} & exit";
+            string cmdStr = $"py {path}\\cmm_parser.py -alsfg {filePath}{fileName} & exit";
             //Process parseProcess = Process.Start(filePath);
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = "cmd.exe";
@@ -86,7 +86,10 @@ namespace CMM
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
+            string path = Environment.CurrentDirectory;
+            string cmdStr = $"py {path}\\cmm_parser.py {filePath}{fileName} & pause & exit";
 
+            var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
         }
 
         private void InputTbx_KeyDown(object sender, KeyEventArgs e)

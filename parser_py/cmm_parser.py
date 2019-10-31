@@ -44,11 +44,12 @@ Options:
     -c, --check [n,...]  Set the checkpoints
     -g, --graph          Generate the tree of syntax
     -i, --intercode      Show the intermediate code 
+    -a, --analysis       Analysis without running
 """
 
 def main(argv):
     try:
-        opts, args = getopt.getopt(argv, "hlsfgio:c:", ["check=", "output=", "help", "lex", "syntax", "file", "graph", "intercode"])
+        opts, args = getopt.getopt(argv, "ahlsfgio:c:", ["analysis", "check=", "output=", "help", "lex", "syntax", "file", "graph", "intercode"])
         
         if len(args) != 1:
             raise Exception
@@ -69,6 +70,7 @@ def main(argv):
     draw_graph = False
     checkpoints = []
     inter_code = False
+    running = True
     
     for opt, arg in opts:
         if opt in ("-o", "--output"):
@@ -88,6 +90,8 @@ def main(argv):
             checkpoints = eval(arg)
         elif opt in ("-i", "--intercode"):
             inter_code = True
+        elif opt in ("-a", "--analysis"):
+            running = False
 
     if not outfile:
         outfile = infile.split(".")
@@ -99,10 +103,12 @@ def main(argv):
 
     if inter_code:
         for index, cmd in enumerate(commands):
-            print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
+            pass
+            # print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
 
-    runner = InterRunner()
-    runner(commands)
+    if running:
+        runner = InterRunner()
+        runner(commands)
 
 
 def test():
