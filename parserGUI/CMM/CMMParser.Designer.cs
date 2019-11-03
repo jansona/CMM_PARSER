@@ -70,11 +70,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.OutputRtx1 = new System.Windows.Forms.RichTextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.OutputRtx2 = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
-            this.OutputRtx3 = new System.Windows.Forms.RichTextBox();
-            this.InputTbx = new WZhou.SyntaxHighlightTextBox.SyntaxHighlightTextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.sl_Status = new System.Windows.Forms.ToolStripStatusLabel();
@@ -82,7 +84,6 @@
             this.sl_rowcol = new System.Windows.Forms.ToolStripStatusLabel();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -450,13 +451,15 @@
             this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel2.ColumnCount = 3;
+            this.tableLayoutPanel2.ColumnCount = 4;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 34F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 260F));
             this.tableLayoutPanel2.Controls.Add(this.tabControl1, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 2, 0);
-            this.tableLayoutPanel2.Controls.Add(this.InputTbx, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel4, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.richTextBox1, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 1, 0);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 53);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
@@ -515,6 +518,16 @@
             this.tabPage2.Text = "Syntax";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(148, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(37, 20);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "tree";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // OutputRtx2
             // 
             this.OutputRtx2.BackColor = System.Drawing.SystemColors.Window;
@@ -535,7 +548,7 @@
             this.tableLayoutPanel4.ColumnCount = 1;
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 0);
-            this.tableLayoutPanel4.Controls.Add(this.OutputRtx3, 0, 1);
+            this.tableLayoutPanel4.Controls.Add(this.textBox3, 0, 1);
             this.tableLayoutPanel4.Location = new System.Drawing.Point(524, 3);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 2;
@@ -553,32 +566,41 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Intermediate code";
             // 
-            // OutputRtx3
+            // textBox3
             // 
-            this.OutputRtx3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.OutputRtx3.Location = new System.Drawing.Point(3, 23);
-            this.OutputRtx3.Name = "OutputRtx3";
-            this.OutputRtx3.ReadOnly = true;
-            this.OutputRtx3.Size = new System.Drawing.Size(248, 439);
-            this.OutputRtx3.TabIndex = 1;
-            this.OutputRtx3.Text = "";
-            this.OutputRtx3.WordWrap = false;
+            this.textBox3.Location = new System.Drawing.Point(3, 23);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(248, 439);
+            this.textBox3.TabIndex = 1;
             // 
-            // InputTbx
+            // richTextBox1
             // 
-            this.InputTbx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.InputTbx.BoldHighlightSymbol = false;
-            this.InputTbx.CaseSensitive = true;
-            this.InputTbx.Location = new System.Drawing.Point(203, 3);
-            this.InputTbx.Name = "InputTbx";
-            this.InputTbx.Size = new System.Drawing.Size(315, 465);
-            this.InputTbx.TabIndex = 9;
-            this.InputTbx.Text = "";
-            this.InputTbx.SelectionChanged += new System.EventHandler(this.InputTbx_SelectionChanged);
+            this.richTextBox1.Location = new System.Drawing.Point(237, 3);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(281, 465);
+            this.richTextBox1.TabIndex = 10;
+            this.richTextBox1.Text = "";
+            this.richTextBox1.VScroll += new System.EventHandler(this.richTextBox1_VScroll);
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Location = new System.Drawing.Point(203, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(28, 465);
+            this.panel1.TabIndex = 11;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // tableLayoutPanel6
             // 
@@ -642,16 +664,6 @@
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(148, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(37, 20);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "tree";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // CMMParser
             // 
@@ -739,7 +751,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem analyzeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem executeToolStripMenuItem;
-        private System.Windows.Forms.RichTextBox OutputRtx3;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private WZhou.SyntaxHighlightTextBox.SyntaxHighlightTextBox InputTbx;
@@ -747,6 +758,9 @@
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.ToolStripStatusLabel sl_rowcol;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
 

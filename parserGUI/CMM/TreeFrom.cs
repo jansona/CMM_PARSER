@@ -24,7 +24,7 @@ namespace CMM
                     
         private void TreeFrom_Load(object sender, EventArgs e)
         {
-            pathname = ($"{filePath}/{partName}.png");   //获得文件的绝对路径
+            pathname = ($"{filePath}{partName}.png");   //获得文件的绝对路径
             this.pictureBox1.Load(pathname);
         }
 

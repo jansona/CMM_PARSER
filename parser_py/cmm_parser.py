@@ -103,8 +103,7 @@ def main(argv):
 
     if inter_code:
         for index, cmd in enumerate(commands):
-            pass
-            # print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
+            print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
 
     if running:
         runner = InterRunner()

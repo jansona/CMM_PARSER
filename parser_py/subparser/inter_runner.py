@@ -148,14 +148,24 @@ def read(arg1, arg2, arg3):
 
 def check(arg1, arg2, arg3):
     write_args_to_file(idt_table.table)
-    order = input("Enter 's' to check step by step: ")
+    order = input("Enter 's' to check step by step, 'm' to show the var: ")
     if order == 's':
         return -2
+    elif order == 'm':
+        for key, value in idt_table.table.items():
+            for item in value:
+                print("name: {}, type: {}, value: {}, domain: {}\n".format(item.name, item.idt_type, item.value, item.domain))
+
 
 def step(arg1, arg2, arg3):
-    order = input("Enter 'q' to quit checking step by step: ")
+    order = input("Enter 'q' to quit checking step by step, 'm' to show the var: ")
     if order == 'q':
         return -1
+    elif order == 'm':
+        for key, value in idt_table.table.items():
+            for item in value:
+                print("name: {}, type: {}, value: {}, domain: {}\n".format(item.name, item.idt_type, item.value, item.domain))
+
     
 
 running_actions = {
@@ -195,6 +205,9 @@ class InterRunner(object):
             # print(cmd.op, cmd.arg0, cmd.arg1, cmd.result)
 
             if cmd.op == 'step' and not step:
+                i += 1
+                continue
+            if cmd.op == 'check' and step:
                 i += 1
                 continue
 

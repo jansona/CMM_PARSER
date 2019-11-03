@@ -43,16 +43,13 @@ class SyntaxParser(object):
             state = analysis_stack[-1][0]
 
             # 加入断点
-            if line == token.line:
-                temp_str += (" " + token.idt)
-            else:
-                gen('step', None, None, None)
-                line = token.line
-
             if int(token.line) in checkpoints:
-                # commands.append(Quadruple('check', None, None, None))
                 gen('check', None, None, None)
                 checkpoints.remove(token.line)
+
+            if line != token.line:
+                gen('step', None, None, None)
+                line = token.line
             # end
             
             try:

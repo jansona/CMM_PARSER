@@ -25,36 +25,13 @@ namespace CMM
 
         private void CMMParser_Load(object sender, EventArgs e)
         {
-            InputTbx.Separators.Add(' ');
-            InputTbx.Separators.Add('\t');
-            InputTbx.Separators.Add('\n');
-            InputTbx.Separators.Add('\r');
-            InputTbx.Separators.Add('+');
-            InputTbx.Separators.Add('-');
-            InputTbx.Separators.Add('*');
-            InputTbx.Separators.Add('/');
-            InputTbx.Separators.Add('=');
-            InputTbx.Separators.Add('<');
-            InputTbx.Separators.Add('>');
-            InputTbx.Separators.Add('(');
-            InputTbx.Separators.Add(')');
-            InputTbx.Separators.Add(';');
-            InputTbx.Separators.Add('{');
-            InputTbx.Separators.Add('}');
-            InputTbx.Separators.Add('[');
-            InputTbx.Separators.Add(']');
-
-
-            InputTbx.Text = initialText;
-            InputTbx.Focus();
-            InputTbx.Select();
-            InputTbx.Select(InputTbx.Text.Length, 0);
+            
         }
 
         private void toolStripButtonAnalyze_Click(object sender, EventArgs e)
         {
             string path = Environment.CurrentDirectory;
-            string cmdStr = $"py {path}\\cmm_parser.py -alsfg {filePath}{fileName} & exit";
+            string cmdStr = $"py {path}\\cmm_parser.py -lsfg {filePath}{fileName} & exit";
             //Process parseProcess = Process.Start(filePath);
             System.Diagnostics.Process p = new System.Diagnostics.Process();
             p.StartInfo.FileName = "cmd.exe";
@@ -70,35 +47,180 @@ namespace CMM
             p.WaitForExit();
             p.Close();
 
-            if (InputTbx.Text != "" && InputTbx.Text != initialText)
-            {
+            //if (InputTbx.Text != "" && InputTbx.Text != initialText)
+            //{
                 string part_name = fileName.Split('.')[0];
                 OutputRtx1.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.lex");
                 OutputRtx2.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.syn");
                 //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
                 sl_Status.Text = "Analysis done successfully";
+            //}
+            //else
+            //{
+                //MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //}
+        }
+        //添加一个Panel控件显示行号
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            panel1.Invalidate();
+        }
+        private void richTextBox1_VScroll(object sender, EventArgs e)
+        {
+            panel1.Invalidate();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            showLineNo();
+        }
+
+        private void showLineNo()
+
+        {
+            //获得当前坐标信息
+            Point p = this.richTextBox1.Location;
+            int crntFirstIndex = this.richTextBox1.GetCharIndexFromPosition(p);
+            int crntFirstLine = this.richTextBox1.GetLineFromCharIndex(crntFirstIndex);
+            Point crntFirstPos = this.richTextBox1.GetPositionFromCharIndex(crntFirstIndex);
+            //
+            p.Y += this.richTextBox1.Height;
+            int crntLastIndex = this.richTextBox1.GetCharIndexFromPosition(p);
+            int crntLastLine = this.richTextBox1.GetLineFromCharIndex(crntLastIndex);
+            Point crntLastPos = this.richTextBox1.GetPositionFromCharIndex(crntLastIndex);
+            //准备画图
+            Graphics g = this.panel1.CreateGraphics();
+            Font font = new Font(this.richTextBox1.Font, this.richTextBox1.Font.Style);
+            SolidBrush brush = new SolidBrush(Color.Green);
+
+            //画图开始
+
+            //刷新画布
+            Rectangle rect = this.panel1.ClientRectangle;
+            brush.Color = this.panel1.BackColor;
+            g.FillRectangle(brush, 0, 0, this.panel1.ClientRectangle.Width, this.panel1.ClientRectangle.Height);
+            brush.Color = Color.Green;//重置画笔颜色
+                                      //绘制行号
+            int lineSpace = 0;
+            if (crntFirstLine != crntLastLine)
+            {
+                lineSpace = (crntLastPos.Y - crntFirstPos.Y) / (crntLastLine - crntFirstLine);
             }
             else
             {
-                MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lineSpace =Convert.ToInt32(this.richTextBox1.Font.Size);
             }
+            int brushX = this.panel1.ClientRectangle.Width - Convert.ToInt32(font.Size * 3);
+            int brushY = crntLastPos.Y + Convert.ToInt32(font.Size * 0.21f);
+            for (int i = crntLastLine; i >= 0; i--)
+            {
+                g.DrawString((i + 1).ToString(), font, brush, brushX, brushY);
+                brushY -= lineSpace;
+            }
+            g.Dispose();
+            font.Dispose();
+            brush.Dispose();
         }
+
+        //另一种方式.不过行号问题已经解决，在此留作备用
+        /*private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+            //获得当前坐标信息
+            Point p = this.OutputRtx1.Location;
+            int crntFirstIndex = this.OutputRtx1.GetCharIndexFromPosition(p);
+
+            int crntFirstLine = this.OutputRtx1.GetLineFromCharIndex(crntFirstIndex);
+
+            Point crntFirstPos = this.OutputRtx1.GetPositionFromCharIndex(crntFirstIndex);
+
+            p.Y += this.OutputRtx1.Height;
+
+            int crntLastIndex = this.OutputRtx1.GetCharIndexFromPosition(p);
+
+            int crntLastLine = this.OutputRtx1.GetLineFromCharIndex(crntLastIndex);
+            Point crntLastPos = this.OutputRtx1.GetPositionFromCharIndex(crntLastIndex);
+
+            //准备画图
+            Graphics g = this.panel1.CreateGraphics();
+
+            Font font = new Font(this.OutputRtx1.Font, this.OutputRtx1.Font.Style);
+
+            SolidBrush brush = new SolidBrush(Color.Green);
+
+            //画图开始
+
+            //刷新画布
+
+            Rectangle rect = this.panel1.ClientRectangle;
+            brush.Color = this.panel1.BackColor;
+
+            g.FillRectangle(brush, 0, 0, this.panel1.ClientRectangle.Width, this.panel1.ClientRectangle.Height);
+
+            brush.Color = Color.White;//重置画笔颜色
+
+            //绘制行号
+
+            int lineSpace = 0;
+
+            if (crntFirstLine != crntLastLine)
+            {
+                lineSpace = (crntLastPos.Y - crntFirstPos.Y) / (crntLastLine - crntFirstLine);
+
+            }
+
+            else
+            {
+                lineSpace = Convert.ToInt32(this.OutputRtx1.Font.Size);
+
+            }
+            int brushX = this.panel1.ClientRectangle.Width - Convert.ToInt32(font.Size * 3);
+
+            int brushY = crntLastPos.Y + Convert.ToInt32(font.Size * 0.21f);
+            for (int i = crntLastLine; i >= crntFirstLine; i--)
+            {
+
+                g.DrawString((i + 1).ToString(), font, brush, brushX, brushY);
+
+                brushY -= lineSpace;
+            }
+
+            g.Dispose();
+
+            font.Dispose();
+
+            brush.Dispose();
+        }*/
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
+
+            //string path = Environment.CurrentDirectory;
+            //string cmdStr = $"py {path}\\cmm_parser.py -c[1] {filePath}{fileName}";
+            //Process data = new Process();
+            //data.StartInfo.FileName = "cmd.exe";
+            //data.StartInfo.UseShellExecute = false;
+            //data.StartInfo.RedirectStandardInput = true;
+            //data.StartInfo.RedirectStandardOutput = true;
+            //data.StartInfo.RedirectStandardError = true;
+            //data.StartInfo.CreateNoWindow = true;
+            //data.OutputDataReceived += OutputDataReceived;
+            //data.Start();
+            //data.BeginOutputReadLine();
+            ////data.StandardInput.WriteLine("ping www.baidu.com");
+            //data.StandardInput.WriteLine(cmdStr);
+
             string path = Environment.CurrentDirectory;
             string cmdStr = $"py {path}\\cmm_parser.py {filePath}{fileName} & pause & exit";
 
             var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
         }
-
-        private void InputTbx_KeyDown(object sender, KeyEventArgs e)
+        void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            if (e.Modifiers == Keys.Control && e.KeyCode == Keys.A)
-            {
-                InputTbx.SelectAll();
-            }
+            this.BeginInvoke(new Action(() => { textBox3.Text += "\r\n" + e.Data; }));
         }
+
+
 
         private void analyzeToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -118,22 +240,22 @@ namespace CMM
 
         private void toolStripButtonCut_Click(object sender, EventArgs e)
         {
-            InputTbx.Cut();
+            
         }
 
         private void toolStripButtonCopy_Click(object sender, EventArgs e)
         {
-            InputTbx.Copy();
+            
         }
 
         private void toolStripButtonPaste_Click(object sender, EventArgs e)
         {
-            InputTbx.Paste();
+            
         }
 
         private void toolStripButtonUndo_Click(object sender, EventArgs e)
         {
-            InputTbx.Undo();
+            
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -143,28 +265,27 @@ namespace CMM
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputTbx.Undo();
+            
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputTbx.Cut();
+            
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputTbx.Copy();
+            
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputTbx.Paste();
+            
         }
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InputTbx.Focus();
-            InputTbx.SelectAll();
+            
         }
 
         private void maximizeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -214,7 +335,7 @@ namespace CMM
                     {
                         // 读取文件内容至代码框
                         StreamReader sr = new StreamReader(myStream, System.Text.Encoding.GetEncoding("GB2312"));
-                        InputTbx.Text = sr.ReadToEnd();
+                        richTextBox1.Text = sr.ReadToEnd();
                         sr.Close();
                         myStream.Close();
                         sl_Status.Text = "File opened";
@@ -242,7 +363,7 @@ namespace CMM
                     {
                         // 保存代码至指定文件
                         StreamWriter sr = new StreamWriter(myStream, System.Text.Encoding.GetEncoding("GB2312"));
-                        sr.Write(InputTbx.Text);
+                        sr.Write(richTextBox1.Text);
                         sr.Close();
                         myStream.Close();
                         sl_Status.Text = "File saved";
@@ -281,5 +402,7 @@ namespace CMM
             TreeFrom f2 = new TreeFrom(filePath, fileName.Split('.')[0]);
             f2.Show();
         }
+
+
     }
 }
