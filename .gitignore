@@ -329,5 +329,5 @@ $RECYCLE.BIN/
 # Mac crap
 .DS_Store
 
-.vs/
-./parserGUI/.vs/
+/parserGUI/.vs
+/.vs

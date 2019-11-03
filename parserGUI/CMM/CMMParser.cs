@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
+using System.Drawing.Drawing2D;
 
 namespace CMM
 {
@@ -47,18 +48,18 @@ namespace CMM
             p.WaitForExit();
             p.Close();
 
-            //if (InputTbx.Text != "" && InputTbx.Text != initialText)
-            //{
+            if (InputTbx.Text != "" && InputTbx.Text != initialText)
+            {
                 string part_name = fileName.Split('.')[0];
                 OutputRtx1.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.lex");
                 OutputRtx2.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.syn");
                 //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
                 sl_Status.Text = "Analysis done successfully";
-            //}
-            //else
-            //{
-                //MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //}
+            }
+            else
+            {
+                MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
         //添加一个Panel控件显示行号
         private void richTextBox1_TextChanged(object sender, EventArgs e)
@@ -194,21 +195,6 @@ namespace CMM
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
-
-            //string path = Environment.CurrentDirectory;
-            //string cmdStr = $"py {path}\\cmm_parser.py -c[1] {filePath}{fileName}";
-            //Process data = new Process();
-            //data.StartInfo.FileName = "cmd.exe";
-            //data.StartInfo.UseShellExecute = false;
-            //data.StartInfo.RedirectStandardInput = true;
-            //data.StartInfo.RedirectStandardOutput = true;
-            //data.StartInfo.RedirectStandardError = true;
-            //data.StartInfo.CreateNoWindow = true;
-            //data.OutputDataReceived += OutputDataReceived;
-            //data.Start();
-            //data.BeginOutputReadLine();
-            ////data.StandardInput.WriteLine("ping www.baidu.com");
-            //data.StandardInput.WriteLine(cmdStr);
 
             string path = Environment.CurrentDirectory;
             string cmdStr = $"py {path}\\cmm_parser.py {filePath}{fileName} & pause & exit";
@@ -403,6 +389,455 @@ namespace CMM
             f2.Show();
         }
 
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            GraphicsPath gp = new GraphicsPath();
 
+            gp.AddEllipse(pictureBox1.ClientRectangle);
+
+            Region region = new Region(gp);
+
+            pictureBox1.Region = region;
+            pictureBox2.Region = region;
+            pictureBox3.Region = region;
+            pictureBox4.Region = region;
+            pictureBox5.Region = region;
+            pictureBox6.Region = region;
+            pictureBox7.Region = region;
+            pictureBox8.Region = region;
+            pictureBox9.Region = region;
+            pictureBox10.Region = region;
+            pictureBox11.Region = region;
+            pictureBox12.Region = region;
+            pictureBox13.Region = region;
+            pictureBox14.Region = region;
+            pictureBox15.Region = region;
+            pictureBox16.Region = region;
+            pictureBox17.Region = region;
+            pictureBox18.Region = region;
+            pictureBox19.Region = region;
+            pictureBox20.Region = region;
+            pictureBox21.Region = region;
+            pictureBox22.Region = region;
+            pictureBox23.Region = region;
+            pictureBox24.Region = region;
+            pictureBox25.Region = region;
+            pictureBox26.Region = region;
+            pictureBox27.Region = region;
+            pictureBox28.Region = region;
+            pictureBox29.Region = region;
+            gp.Dispose();
+
+            region.Dispose();
+        }
+
+        private Boolean fals = true;
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox1.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox1.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+            //此处添加接口
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox2.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox3.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox4.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox4.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox5.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox5.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox6.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox6.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox7_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox7.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox7.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox8_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox8.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox8.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox9.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox9.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox10_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox10.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox10.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox11_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox11.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox11.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox12_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox12.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox12.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox13_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox13.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox13.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox14_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox14.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox14.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox15_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox15.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox15.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox16_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox16.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox16.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox17_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox17.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox17.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox18_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox18.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox18.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox19_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox19.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox19.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox20_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox20.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox20.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox21_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox21.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox21.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox22_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox22.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox22.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox23_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox23.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox23.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox24_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox24.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox24.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox25_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox25.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox25.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox26_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox26.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox26.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox27_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox27.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox27.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox28_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox28.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox28.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
+
+        private void pictureBox29_Click(object sender, EventArgs e)
+        {
+            if (fals == true)
+            {
+                this.pictureBox29.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOn.png");
+                fals = false;
+            }
+            else
+            {
+                this.pictureBox29.BackgroundImage = Image.FromFile(Application.StartupPath + "\\Resources\\" + "bitOff.png");
+                fals = true;
+            }
+        }
     }
 }
