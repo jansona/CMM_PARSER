@@ -25,8 +25,11 @@ namespace CMM
         }
 
         private void CMMParser_Load(object sender, EventArgs e)
-        {
-            
+        {           
+            richTextBox1.Text = initialText;
+            richTextBox1.Focus();
+            richTextBox1.Select();
+            richTextBox1.Select(richTextBox1.Text.Length, 0);
         }
 
         private void toolStripButtonAnalyze_Click(object sender, EventArgs e)
@@ -47,18 +50,28 @@ namespace CMM
             string output = p.StandardOutput.ReadLine();
             p.WaitForExit();
             p.Close();
-
-            if (InputTbx.Text != "" && InputTbx.Text != initialText)
+            try
             {
-                string part_name = fileName.Split('.')[0];
-                OutputRtx1.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.lex");
-                OutputRtx2.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.syn");
-                //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
-                sl_Status.Text = "Analysis done successfully";
+                if (richTextBox1.Text != "" && richTextBox1.Text != initialText)
+                {
+                    string part_name = fileName.Split('.')[0];
+                    OutputRtx1.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.lex");
+                    OutputRtx2.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.syn");
+                    //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
+                    sl_Status.Text = "Analysis done successfully";
+                }
+                else
+                {
+                    MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
+            catch(Exception)
             {
-                MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                OutputRtx1.Text = "";
+                OutputRtx2.Text = "";
+                //OutputRtx3.Text = "";
+                MessageBox.Show("Please check your code and correct the errors before analyzing!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                sl_Status.Text = "Error occurred";
             }
         }
         //添加一个Panel控件显示行号
@@ -197,9 +210,19 @@ namespace CMM
         {
 
             string path = Environment.CurrentDirectory;
-            string cmdStr = $"py {path}\\cmm_parser.py {filePath}{fileName} & pause & exit";
-
-            var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
+            string cmdStr = $"py {path}\\cmm_parser.py -c[1] {filePath}{fileName}";
+            Process data = new Process();
+            data.StartInfo.FileName = "cmd.exe";
+            data.StartInfo.UseShellExecute = false;
+            data.StartInfo.RedirectStandardInput = true;
+            data.StartInfo.RedirectStandardOutput = true;
+            data.StartInfo.RedirectStandardError = true;
+            data.StartInfo.CreateNoWindow = true;
+            data.OutputDataReceived += OutputDataReceived;
+            data.Start();
+            data.BeginOutputReadLine();
+            //data.StandardInput.WriteLine("ping www.baidu.com");
+            data.StandardInput.WriteLine(cmdStr);
         }
         void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -226,22 +249,22 @@ namespace CMM
 
         private void toolStripButtonCut_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Cut();
         }
 
         private void toolStripButtonCopy_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Copy();
         }
 
         private void toolStripButtonPaste_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Paste();
         }
 
         private void toolStripButtonUndo_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Undo();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -251,27 +274,28 @@ namespace CMM
 
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Undo();
         }
 
         private void cutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Cut();
         }
 
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Copy();
         }
 
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Paste();
         }
 
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            richTextBox1.Focus();
+            richTextBox1.SelectAll();
         }
 
         private void maximizeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -313,7 +337,7 @@ namespace CMM
                 string[] segments = fullPath.Split('\\');
                 fileName = segments[segments.Length - 1];
                 filePath = fullPath.Remove(fullPath.Length - fileName.Length, fileName.Length);
-                string s = "";
+                //string s = "";
 
                 try
                 {
@@ -332,6 +356,8 @@ namespace CMM
                     sl_Status.Text = "File opening failed";
                 }
             }
+
+            
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -372,10 +398,10 @@ namespace CMM
             toolStripButton2_Click(sender, e);
         }
 
-        private void InputTbx_SelectionChanged(object sender, EventArgs e)
+        private void richTextBox1_SelectionChanged(object sender, EventArgs e)
         {
             int row, col = 1;
-            string text = InputTbx.Text.Substring(0, InputTbx.SelectionStart);
+            string text = richTextBox1.Text.Substring(0, richTextBox1.SelectionStart);
             string[] tokens = text.Split(new string[] { "\n" }, StringSplitOptions.None);
             row = tokens.Length;
             if (tokens.Length - 1 >= 0)
