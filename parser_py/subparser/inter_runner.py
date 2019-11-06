@@ -1,6 +1,7 @@
 import os
 from subparser.identity_table import TableItem, Table
 from subparser.forms import Quadruple
+from subparser.ParseErrData import RTM_ERR, ParseErrData
 
 
 idt_table = Table()
@@ -217,7 +218,17 @@ class InterRunner(object):
             # print("command {}: {}, {}".format(i, commands[i].op, commands[i].result))
 
             arg1, arg2, arg3 = address_search(cmd.arg0, cmd.arg1, cmd.result)
-            address = operation(arg1, arg2, arg3)
+
+            try:
+                address = operation(arg1, arg2, arg3)
+            except KeyError as ke:
+                rtm_err = ParseErrData(RTM_ERR, None, "Undefined variable: '{}'".format(ke.args[0]))
+                print(rtm_err)
+                exit(1)
+            except Exception as e:
+                rtm_err = ParseErrData(RTM_ERR, None, "Run-time Error: {}".format(e))
+                print(rtm_err)
+                exit(1)
 
             if address == -1:
                 step = False

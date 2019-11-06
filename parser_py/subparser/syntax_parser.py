@@ -19,6 +19,11 @@ class SyntaxParser(object):
 
     def parse_tokens(self, tokens, show_syntax=False, file_name=None, draw_graph=False, checkpoints=[]):
 
+        err_list = []
+        sem_err_mark = False
+
+        succeeded = False
+
         dot.clear()
         
         table = ActionTable(action_table_data)
@@ -109,7 +114,12 @@ class SyntaxParser(object):
 
                 reduce_action_args.reverse()
 
-                token = action[2](*reduce_action_args)
+                try:
+                    token = action[2](*reduce_action_args)
+                except ParseErrData as ped:
+                    err_list.append(ped)
+                    sem_err_mark = True
+                    token = ped.token
 
                 # TODO 一种很简单的处理
                 try:
@@ -133,11 +143,21 @@ class SyntaxParser(object):
                 if draw_graph:
                     print(file_name)
                     dot.render(file_name)
-                return True
+
+                succeeded = True
+                break
             else:
-                return False
+                succeeded = False
+                break
+
+        if sem_err_mark:
+            for err in err_list:
+                print(err)
+            exit(1)
 
         if outstream is not sys.stdout:
             outstream.close()
             outstream = sys.stdout
+
+        return succeeded
 

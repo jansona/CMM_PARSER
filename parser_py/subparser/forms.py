@@ -1,5 +1,6 @@
 
 from subparser.cmm_token import Token
+from subparser.ParseErrData import SEM_ERR, ParseErrData
 
 
 ASSIGN = "{},=,{}"
@@ -109,7 +110,7 @@ def reduce_12(*args):
     d = args[1]
     d.place = d.name
     gen('new', E.value, None, d.place)
-    gen('=', 0, None, d.place)
+    gen('=', '0', None, d.place)
     return Token(idt="F")
 
 # F->Ed[n]={nN}
@@ -122,13 +123,34 @@ def reduce_13(*args):
     d.place = d.name
     for i in range(int(n0.value)):
         gen('new', E.value, None, "{}+{}".format(d.place, i))
+        gen('=', '0', None, "{}+{}".format(d.place, i))
     gen('=', n1.value, None, "{}+{}".format(d.place, 0))
     for index, n in enumerate(N.value):
         gen('=', n, None, "{}+{}".format(d.place, index+1))
+
+    if int(n.value) <= 0:
+        raise ParseErrData(SEM_ERR, int(n.line), 
+            "The size of array must be positive but got {}".format(n.value), 
+            Token(idt="F"))
+
     return Token(idt="F")
 
 # F->Ed[n]={}
 def reduce_14(*args):
+
+    E = args[0]
+    d = args[1]
+    n = args[3]
+
+    if int(n.value) <= 0:
+        raise ParseErrData(SEM_ERR, int(n.line), 
+            "The size of array must be positive but got {}".format(n.value), 
+            Token(idt="F"))
+
+    for i in range(int(n.value)):
+        gen('new', E.value, None, "{}+{}".format(d.place, i))
+        gen('=', '0', None, "{}+{}".format(d.place, i))
+    
     return Token(idt="F")
 
 # F->Ed[n]
@@ -137,8 +159,16 @@ def reduce_15(*args):
     d = args[1]
     n = args[3]
     d.place = d.name
+
+    if int(n.value) <= 0:
+        raise ParseErrData(SEM_ERR, int(n.line), 
+            "The size of array must be positive but got {}".format(n.value), 
+            Token(idt="F"))
+
     for i in range(int(n.value)):
         gen('new', E.value, None, "{}+{}".format(d.place, i))
+        gen('=', '0', None, "{}+{}".format(d.place, i))
+
     return Token(idt="F")
 
 # F->d[X]=X
