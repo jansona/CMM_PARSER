@@ -1,4 +1,5 @@
 from subparser.sig_table import SIG_TABLE_DICT as STD, get_key
+from subparser.ParseErrData import LEX_ERR, ParseErrData
 from subparser.cmm_token import *
 import sys
 
@@ -6,9 +7,11 @@ import sys
 class LexParser(object):
 
     def __init__(self):
-        pass
+        self.err_mark = False
 
     def parse_sentence(self, sentence):
+
+        err_list = []
 
         tokens = []
         line = 1
@@ -67,6 +70,13 @@ class LexParser(object):
 
                     char = sentence[i]
 
+                # TODO 数字开头，后跟没空白符
+                if is_alpha_ul_num(char):
+                    self.err_mark = True
+                    err_list.append(ParseErrData(LEX_ERR, int(line), "Variable shouldn't begin with number"))
+                    i += 1
+                    continue
+
                 token = Token(idt=STD["constnum"], value=number_str, line=line)
                 tokens.append(token)
 
@@ -100,8 +110,10 @@ class LexParser(object):
                     if find_right_comment:
                         continue
                     else:
-                        print("err")
-                        exit(1) # handle error of unpaired comments
+                        self.err_mark = True
+                        self.err_list.append(ParseErrData(LEX_ERR, int(line), "Unpaired comment"))
+                        i += 1
+                        exit(1)
                 elif sig_str in STD.keys():
                     token = Token(idt=STD[sig_str], line=line)
                     i += 1
@@ -110,10 +122,15 @@ class LexParser(object):
 
                 tokens.append(token)
             else:
-                raise Exception("未定义的字符")
-                exit(1)
+                self.err_mark = True
+                err_list.append(ParseErrData(LEX_ERR, int(line), "Unexpected character"))
+                i += 1
+                continue
 
             i += 1
+
+        for err in err_list:
+            print(err)
 
         tokens.append(Token(idt=STD['#'], line=line))
         return tokens

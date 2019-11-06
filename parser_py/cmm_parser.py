@@ -25,6 +25,9 @@ class CmmParser(object):
         tokens = self.lparser.parse_sentence(code_str)
         self.covert_int2str(tokens)
 
+        if self.lparser.err_mark:
+            exit(1)
+
         if show_lex:
             self.lparser.check_tokens_2(tokens, file_name=file_name)
 
@@ -112,7 +115,7 @@ def main(argv):
 
 def test():
     parser = CmmParser(LexParser(), SyntaxParser())  
-    parser.parse("show_code/bubble_sort.cmm", show_lex=False, show_syntax=False)  
+    parser.parse("show_code/test_code.cmm", show_lex=False, show_syntax=False)  
 
     for index, cmd in enumerate(commands):
         print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
@@ -122,5 +125,5 @@ def test():
 
 
 if __name__ == '__main__':
-    # test()
-    main(sys.argv[1:])
+    test()
+    # main(sys.argv[1:])
