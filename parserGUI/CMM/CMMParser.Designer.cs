@@ -651,6 +651,8 @@
             this.richTextBox1.Text = "";
             this.richTextBox1.VScroll += new System.EventHandler(this.richTextBox1_VScroll);
             this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
+
+            this.richTextBox1.SelectionChanged += new System.EventHandler(this.richTextBox1_SelectionChanged);
             // 
             // panel1
             // 
@@ -1147,7 +1149,6 @@
         private System.Windows.Forms.ToolStripMenuItem executeToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private WZhou.SyntaxHighlightTextBox.SyntaxHighlightTextBox InputTbx;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.StatusStrip statusStrip2;
         private System.Windows.Forms.ToolStripStatusLabel sl_rowcol;
