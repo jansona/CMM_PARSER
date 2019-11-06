@@ -6,6 +6,7 @@ from subparser.action_table_data import action_table_data
 from subparser.cmm_token import Token
 from subparser.auto_table_generator import replace_symbol_reverse
 from subparser.forms import commands, Quadruple, gen
+from subparser.ParseErrData import SYN_ERR, ParseErrData
 
 
 dot = Digraph(comment='The Round Table')
@@ -40,6 +41,9 @@ class SyntaxParser(object):
         
         while i < length:
             token = tokens[i]
+
+            current_line = token.line
+
             state = analysis_stack[-1][0]
 
             # 加入断点
@@ -56,8 +60,22 @@ class SyntaxParser(object):
                 action = table.action(state, token)
             except:
                 # TODO 这种处理不妥
-                print("Unexpected token: ")
-                print("line: {}, '{}'".format(token.line, token.idt))
+
+                mark = ""
+                mark_type = ""
+                if token.idt == 'constnum':
+                    mark_type = 'const num'
+                    mark = token.value
+                elif token.idt == 'identity':
+                    mark_type = 'variable'
+                    mark = token.name
+                else:
+                    mark_type = 'key word'
+                    mark = token.idt
+
+                parse_err = ParseErrData(SYN_ERR, int(token.line),
+                 message="Action failed. Unexpected {}: '{}'.".format(mark_type, mark))
+                print(parse_err)
                 exit(1)
 
             if show_syntax:
@@ -92,7 +110,16 @@ class SyntaxParser(object):
                 reduce_action_args.reverse()
 
                 token = action[2](*reduce_action_args)
-                state = table.goto(analysis_stack[-1][0], token)
+
+                # TODO 一种很简单的处理
+                try:
+                    state = table.goto(analysis_stack[-1][0], token)
+                except Exception:
+                    parse_err = ParseErrData(SYN_ERR, int(current_line), 
+                    message="Reduction failed. Thers's something wrong with the forms usually.")
+                    print(parse_err)
+                    exit(1)
+
                 analysis_stack.append((state, token))
 
                 if draw_graph:
