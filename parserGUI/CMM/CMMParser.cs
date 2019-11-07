@@ -435,11 +435,12 @@ namespace CMM
         //中间变量
         void Pre()
         {
+            string path = Environment.CurrentDirectory;
             try
             {
                 //创建一个StreamReader的实例来读取文件
                 //using语句也能关闭StreamReader
-                using (StreamReader sr = new StreamReader("D:/Codes/git/CMM5/parser_py/cmm_parser.py"))
+                using (StreamReader sr = new StreamReader("{path}\\cmm_parser.py"))
                 {
                     string line;
                     string content = "";
