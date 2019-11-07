@@ -208,24 +208,38 @@ namespace CMM
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
-
-            /*添加断点操作。行号信息在textBox1内*/
-            //
-
             string path = Environment.CurrentDirectory;
-            string cmdStr = $"py {path}\\cmm_parser.py -c[1] {filePath}{fileName}";
-            Process data = new Process();
-            data.StartInfo.FileName = "cmd.exe";
-            data.StartInfo.UseShellExecute = false;
-            data.StartInfo.RedirectStandardInput = true;
-            data.StartInfo.RedirectStandardOutput = true;
-            data.StartInfo.RedirectStandardError = true;
-            data.StartInfo.CreateNoWindow = true;
-            data.OutputDataReceived += OutputDataReceived;
-            data.Start();
-            data.BeginOutputReadLine();
-            //data.StandardInput.WriteLine("ping www.baidu.com");
-            data.StandardInput.WriteLine(cmdStr);
+            if (textBox1.Text == null)//无断点正常运行
+            {                
+                string cmdStr = $"py {path}\\cmm_parser.py -slfg {filePath}{fileName}";
+                Process data = new Process();
+                data.StartInfo.FileName = "cmd.exe";
+                data.StartInfo.UseShellExecute = false;
+                data.StartInfo.RedirectStandardInput = true;
+                data.StartInfo.RedirectStandardOutput = true;
+                data.StartInfo.RedirectStandardError = true;
+                data.StartInfo.CreateNoWindow = true;
+                data.OutputDataReceived += OutputDataReceived;
+                data.Start();
+                data.BeginOutputReadLine();
+                data.StandardInput.WriteLine(cmdStr);
+            }
+            else
+            {
+                string row = textBox1.Text;//断点行号
+                string cmdStr = $"py {path}\\cmm_parser.py -c[row] {filePath}{fileName}";
+                Process data = new Process();
+                data.StartInfo.FileName = "cmd.exe";
+                data.StartInfo.UseShellExecute = false;
+                data.StartInfo.RedirectStandardInput = true;
+                data.StartInfo.RedirectStandardOutput = true;
+                data.StartInfo.RedirectStandardError = true;
+                data.StartInfo.CreateNoWindow = true;
+                data.OutputDataReceived += OutputDataReceived;
+                data.Start();
+                data.BeginOutputReadLine();
+                data.StandardInput.WriteLine(cmdStr);
+            }
         }
         void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
