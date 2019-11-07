@@ -58,6 +58,7 @@ namespace CMM
                     OutputRtx1.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.lex");
                     OutputRtx2.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.syn");
                     //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
+                    Pre();
                     sl_Status.Text = "Analysis done successfully";
                 }
                 else
@@ -431,57 +432,84 @@ namespace CMM
             TreeFrom f2 = new TreeFrom(filePath, fileName.Split('.')[0]);
             f2.Show();
         }
-
-        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
+        //中间变量
+        void Pre()
         {
+            try
+            {
+                //创建一个StreamReader的实例来读取文件
+                //using语句也能关闭StreamReader
+                using (StreamReader sr = new StreamReader("D:/Codes/git/CMM5/parser_py/cmm_parser.py"))
+                {
+                    string line;
+                    string content = "";
 
+                    //从文件读取并显示行，直到文件的末尾
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        Console.WriteLine(line);
+                        content += line;
+                    }
+                    //按钮
+                    textBox3.Text = content;
+                }
+            }
+            catch (Exception e)
+            {
+                //向用户显示出错消息
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+
+            //Console.ReadKey();
+            Console.Read();
         }
 
-
-
-
-
-        /*private void panel2_Paint(object sender, PaintEventArgs e)
+        private void label1_Click(object sender, EventArgs e)
         {
-            GraphicsPath gp = new GraphicsPath();
+            Pre();
+        }
+        /*private void panel2_Paint(object sender, PaintEventArgs e)
+{
+   GraphicsPath gp = new GraphicsPath();
 
-            gp.AddEllipse(pictureBox1.ClientRectangle);
+   gp.AddEllipse(pictureBox1.ClientRectangle);
 
-            Region region = new Region(gp);
+   Region region = new Region(gp);
 
-            pictureBox1.Region = region;
-            pictureBox2.Region = region;
-            pictureBox3.Region = region;
-            pictureBox4.Region = region;
-            pictureBox5.Region = region;
-            pictureBox6.Region = region;
-            pictureBox7.Region = region;
-            pictureBox8.Region = region;
-            pictureBox9.Region = region;
-            pictureBox10.Region = region;
-            pictureBox11.Region = region;
-            pictureBox12.Region = region;
-            pictureBox13.Region = region;
-            pictureBox14.Region = region;
-            pictureBox15.Region = region;
-            pictureBox16.Region = region;
-            pictureBox17.Region = region;
-            pictureBox18.Region = region;
-            pictureBox19.Region = region;
-            pictureBox20.Region = region;
-            pictureBox21.Region = region;
-            pictureBox22.Region = region;
-            pictureBox23.Region = region;
-            pictureBox24.Region = region;
-            pictureBox25.Region = region;
-            pictureBox26.Region = region;
-            pictureBox27.Region = region;
-            pictureBox28.Region = region;
-            pictureBox29.Region = region;
-            gp.Dispose();
+   pictureBox1.Region = region;
+   pictureBox2.Region = region;
+   pictureBox3.Region = region;
+   pictureBox4.Region = region;
+   pictureBox5.Region = region;
+   pictureBox6.Region = region;
+   pictureBox7.Region = region;
+   pictureBox8.Region = region;
+   pictureBox9.Region = region;
+   pictureBox10.Region = region;
+   pictureBox11.Region = region;
+   pictureBox12.Region = region;
+   pictureBox13.Region = region;
+   pictureBox14.Region = region;
+   pictureBox15.Region = region;
+   pictureBox16.Region = region;
+   pictureBox17.Region = region;
+   pictureBox18.Region = region;
+   pictureBox19.Region = region;
+   pictureBox20.Region = region;
+   pictureBox21.Region = region;
+   pictureBox22.Region = region;
+   pictureBox23.Region = region;
+   pictureBox24.Region = region;
+   pictureBox25.Region = region;
+   pictureBox26.Region = region;
+   pictureBox27.Region = region;
+   pictureBox28.Region = region;
+   pictureBox29.Region = region;
+   gp.Dispose();
 
-            region.Dispose();
-        }*/
+   region.Dispose();
+}*/
 
 
     }
