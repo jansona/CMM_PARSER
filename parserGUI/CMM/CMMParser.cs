@@ -440,7 +440,7 @@ namespace CMM
             {
                 //创建一个StreamReader的实例来读取文件
                 //using语句也能关闭StreamReader
-                using (StreamReader sr = new StreamReader("{path}\\cmm_parser.py"))
+                using (StreamReader sr = new StreamReader("{path}\\temp_dict"))
                 {
                     string line;
                     string content = "";
