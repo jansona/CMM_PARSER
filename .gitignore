@@ -331,3 +331,5 @@ $RECYCLE.BIN/
 
 /parserGUI/.vs
 /.vs
+
+!parserGUI/CMM/Resources/*.png
