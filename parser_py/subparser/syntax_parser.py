@@ -117,6 +117,7 @@ class SyntaxParser(object):
                 try:
                     token = action[2](*reduce_action_args)
                 except ParseErrData as ped:
+                    ped.line = int(current_line)
                     err_list.append(ped)
                     sem_err_mark = True
                     token = ped.token

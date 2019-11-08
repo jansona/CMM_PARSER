@@ -41,7 +41,7 @@ def add_item_or_err(val0, val1, var):
     types += [eval(idt_table.get_item(v).idt_type) for v in vars]
 
     if (not idt_table.has_item(var)) and (var[0] is not '0'):
-        raise Exception("未定义变量")
+        raise KeyError(var)
         exit(1)
     elif not idt_table.has_item(var):
 
@@ -51,7 +51,7 @@ def add_item_or_err(val0, val1, var):
         elif int in types:
             type_str = 'int'
         else:
-            raise Exception("未知类型参数")
+            raise KeyError(var)
             exit(1)
         
         idt_table.add_item(name=var, idt_type=type_str)

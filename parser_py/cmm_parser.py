@@ -1,4 +1,5 @@
 import sys, getopt
+import pickle
 from subparser.sig_table import get_key
 from subparser.lex_parser import LexParser
 from subparser.syntax_parser import SyntaxParser
@@ -23,6 +24,7 @@ class CmmParser(object):
             code_str = '\n'.join(fin.readlines())
 
         tokens = self.lparser.parse_sentence(code_str)
+
         self.covert_int2str(tokens)
 
         if self.lparser.err_mark:
