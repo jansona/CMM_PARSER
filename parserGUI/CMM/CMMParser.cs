@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace CMM
 {
@@ -512,6 +513,18 @@ namespace CMM
    region.Dispose();
 }*/
 
+        protected override void DefWndProc(ref System.Windows.Forms.Message m)
+        {
+            switch (m.Msg)
+            {
+                case 1024:
+                    Console.WriteLine(m.LParam);
+                    break;
+                default:
+                    base.DefWndProc(ref m);
+                    break;
+            }
+        }
 
     }
 }

@@ -1,10 +1,15 @@
 import os
+import win32api, win32gui, win32con
 from subparser.identity_table import TableItem, Table
 from subparser.forms import Quadruple
 from subparser.ParseErrData import RTM_ERR, ParseErrData
 
 
 idt_table = Table()
+
+win_title = "CMM Parser"
+hwnd = win32gui.FindWindow(None, win_title)
+data_type = win32con.WM_USER
 
 def write_args_to_file(arg_dict):
     with open("./temp_dict", 'w') as fout:
@@ -148,6 +153,9 @@ def read(arg1, arg2, arg3):
     var.value = input("Please input the value of {}:".format(var.name))
 
 def check(arg1, arg2, arg3):
+
+    win32gui.SendMessage(hwnd, data_type, None, int(arg3))
+
     write_args_to_file(idt_table.table)
     order = input("Enter 's' to check step by step, 'm' to show the var: ")
     if order == 's':
@@ -159,6 +167,9 @@ def check(arg1, arg2, arg3):
 
 
 def step(arg1, arg2, arg3):
+
+    win32gui.SendMessage(hwnd, data_type, None, int(arg3))
+
     order = input("Enter 'q' to quit checking step by step, 'm' to show the var: ")
     if order == 'q':
         return -1

@@ -53,11 +53,11 @@ class SyntaxParser(object):
 
             # 加入断点
             if int(token.line) in checkpoints:
-                gen('check', None, None, None)
+                gen('check', None, None, int(current_line))
                 checkpoints.remove(token.line)
 
             if line != token.line:
-                gen('step', None, None, None)
+                gen('step', None, None, int(current_line))
                 line = token.line
             # end
             

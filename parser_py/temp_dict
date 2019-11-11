@@ -1,5 +1,4 @@
-name: 0t0, type: int, value: 0, domain: None
 name: i, type: int, value: 2, domain: None
-name: 0t1, type: int, value: 3, domain: None
-name: 0t2, type: int, value: 1, domain: None
-name: 0t3, type: int, value: 2, domain: None
+name: 0t0, type: int, value: 3, domain: None
+name: 0t1, type: int, value: 1, domain: None
+name: 0t2, type: int, value: 2, domain: None
