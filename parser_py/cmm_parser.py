@@ -120,7 +120,8 @@ def test():
     parser.parse("show_code/test_code.cmm", show_lex=False, show_syntax=False)  
 
     for index, cmd in enumerate(commands):
-        print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
+        pass
+        # print("{:3}: ({:^6},{:^6},{:^6},{:^6})".format(index, cmd.op, str(cmd.arg0), str(cmd.arg1), str(cmd.result)))
 
     runner = InterRunner()
     runner(commands)

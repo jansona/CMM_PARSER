@@ -12,12 +12,16 @@ from subparser.ParseErrData import SYN_ERR, ParseErrData
 dot = Digraph(comment='The Round Table')
 dot.format = 'png'
 
+domain = '0'
+
 class SyntaxParser(object):
 
     def __init__(self):
         pass
 
     def parse_tokens(self, tokens, show_syntax=False, file_name=None, draw_graph=False, checkpoints=[]):
+
+        global domain
 
         err_list = []
         sem_err_mark = False
@@ -63,9 +67,9 @@ class SyntaxParser(object):
             
             try:
                 action = table.action(state, token)
-            except:
-                # TODO 这种处理不妥
+            except KeyError as ke:
 
+                # TODO 这种处理不妥
                 mark = ""
                 mark_type = ""
                 if token.idt == 'constnum':
@@ -81,6 +85,9 @@ class SyntaxParser(object):
                 parse_err = ParseErrData(SYN_ERR, int(token.line),
                  message="Action failed. Unexpected {}: '{}'.".format(mark_type, mark))
                 print(parse_err)
+                exit(1)
+            except Exception as e:
+                print(e)
                 exit(1)
 
             if show_syntax:
@@ -98,6 +105,18 @@ class SyntaxParser(object):
             if 's' is action[0]:
                 analysis_stack.append((action[1], action[2]))
                 i += 1
+
+                # 根据{、}判断domain
+                if token.idt == '{':
+                    num = int(domain.split('-')[-1]) + 1
+                    if len(domain.split('-')) != 1:
+                        temp_domain = "{}-{}".format("-".join(domain.split('-')[:-1]), num)
+                    else:
+                        temp_domain = "{}".format(num)
+                    domain = temp_domain + "-0"
+                elif token.idt == '}':
+                    domain = "-".join(domain.split('-')[:-1])
+                    
             elif 'r' is action[0]:
                 num2reduce = action[1]
 
@@ -125,7 +144,7 @@ class SyntaxParser(object):
                 # TODO 一种很简单的处理
                 try:
                     state = table.goto(analysis_stack[-1][0], token)
-                except Exception:
+                except Exception as e:
                     parse_err = ParseErrData(SYN_ERR, int(current_line), 
                     message="Reduction failed. Thers's something wrong with the forms usually.")
                     print(parse_err)

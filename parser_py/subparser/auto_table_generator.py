@@ -14,7 +14,8 @@ replace_dict = {
     'e': 'read',
     't': 'write',
     's': 'else',
-    '`': ','
+    '`': ',',
+    'q': 'return'
 }
 
 def replace_symbol(c):
