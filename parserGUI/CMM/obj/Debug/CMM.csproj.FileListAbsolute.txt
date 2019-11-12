@@ -1,6 +1,10 @@
-C:\Users\司晨阳\Desktop\RESRAP_MMC-master\parserGUI\CMM\obj\Debug\CMM.csprojAssemblyReference.cache
-C:\Users\司晨阳\Desktop\RESRAP_MMC-master\parserGUI\CMM\obj\Debug\CMM.CMMParser.resources
-C:\Users\司晨阳\Desktop\RESRAP_MMC-master\parserGUI\CMM\obj\Debug\CMM.Properties.Resources.resources
-C:\Users\司晨阳\Desktop\RESRAP_MMC-master\parserGUI\CMM\obj\Debug\CMM.TreeFrom.resources
-C:\Users\司晨阳\Desktop\RESRAP_MMC-master\parserGUI\CMM\obj\Debug\CMM.csproj.GenerateResource.cache
-C:\Users\司晨阳\Desktop\RESRAP_MMC-master\parserGUI\CMM\obj\Debug\CMM.csproj.CoreCompileInputs.cache
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\bin\Debug\CMM.exe
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\bin\Debug\CMM.pdb
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.csprojAssemblyReference.cache
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.CMMParser.resources
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.Properties.Resources.resources
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.TreeFrom.resources
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.csproj.GenerateResource.cache
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.csproj.CopyComplete
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.exe
+D:\project\解释器构造\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.pdb
