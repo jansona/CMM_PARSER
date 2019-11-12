@@ -211,37 +211,9 @@ namespace CMM
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
             string path = Environment.CurrentDirectory;
-            if (textBox1.Text == null)//无断点正常运行
-            {                
-                string cmdStr = $"py {path}\\cmm_parser.py -slfg {filePath}{fileName}";
-                Process data = new Process();
-                data.StartInfo.FileName = "cmd.exe";
-                data.StartInfo.UseShellExecute = false;
-                data.StartInfo.RedirectStandardInput = true;
-                data.StartInfo.RedirectStandardOutput = true;
-                data.StartInfo.RedirectStandardError = true;
-                data.StartInfo.CreateNoWindow = true;
-                data.OutputDataReceived += OutputDataReceived;
-                data.Start();
-                data.BeginOutputReadLine();
-                data.StandardInput.WriteLine(cmdStr);
-            }
-            else
-            {
-                string row = textBox1.Text;//断点行号
-                string cmdStr = $"py {path}\\cmm_parser.py -c[row] {filePath}{fileName}";
-                Process data = new Process();
-                data.StartInfo.FileName = "cmd.exe";
-                data.StartInfo.UseShellExecute = false;
-                data.StartInfo.RedirectStandardInput = true;
-                data.StartInfo.RedirectStandardOutput = true;
-                data.StartInfo.RedirectStandardError = true;
-                data.StartInfo.CreateNoWindow = true;
-                data.OutputDataReceived += OutputDataReceived;
-                data.Start();
-                data.BeginOutputReadLine();
-                data.StandardInput.WriteLine(cmdStr);
-            }
+            string cmdStr = $"py {path}\\cmm_parser.py {filePath}{fileName} & pause & exit";
+
+            var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
         }
         void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
