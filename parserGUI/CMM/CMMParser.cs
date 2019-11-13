@@ -211,16 +211,24 @@ namespace CMM
 
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
-            string path = Environment.CurrentDirectory;
-			
-            string cmdStr = $"py {path}\\cmm_parser.py {filePath}{fileName} & pause & exit";
-            var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
+			string path = Environment.CurrentDirectory;
+			if (textBox1.Text == null)//无断点正常运行
+			{
+				string check_points = "[]";
+				string cmdStr = $"py {path}\\cmm_parser.py -c \"{check_points}\" {filePath}{fileName} & pause & exit";
+				var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
 			
 
+			}
+			else
+			{
+				string row = textBox1.Text;//断点行号
+				string check_points = "[" + row + "]";
+				string cmdStr = $"py {path}\\cmm_parser.py -c \"{check_points}\" {filePath}{fileName} & pause & exit";
+				var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
+			}
 
-			//调用变量文件输出文本框函数
 			Varmonitor();
-
 
 		}
 		void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -523,11 +531,14 @@ namespace CMM
 		//变量监视器
 		protected void Varmonitor()
 		{
+			string path = Environment.CurrentDirectory;
+			string path_str = $"{path}\\temp_dict";
+
 			try
 			{
-				if (richTextBox1.Text != "" )
+				if (richTextBox1.Text != "")
 				{
-					string str = File.ReadAllText(@"../../../../parser_py/temp_dict");
+					string str = File.ReadAllText(path_str);
 					textBox3.Text = str;
 				}
 				else
@@ -542,7 +553,7 @@ namespace CMM
 				textBox3.Text = str;
 			}
 
-			                                                            
+
 		}
 
 
