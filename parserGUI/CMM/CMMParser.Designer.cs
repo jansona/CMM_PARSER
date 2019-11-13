@@ -453,10 +453,10 @@
             this.toolStripButtonRun.Size = new System.Drawing.Size(23, 19);
             this.toolStripButtonRun.Text = "Run";
             this.toolStripButtonRun.Click += new System.EventHandler(this.toolStripButtonRun_Click);
-            // 
-            // tableLayoutPanel2
-            // 
-            this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			// 
+			// tableLayoutPanel2
+			// 
+			this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
@@ -528,7 +528,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(228, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Intermediate code";
+            this.label1.Text = "Var Monitor";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // tabControl1

@@ -17,8 +17,9 @@ namespace CMM
 
         string fileName = "";
         string filePath = "";
+		int count = 0;
 
-        string initialText = "\r\n/* Put your code here. */\r\n\r\n";
+		string initialText = "\r\n/* Put your code here. */\r\n\r\n";
 
         public CMMParser()
         {
@@ -51,33 +52,33 @@ namespace CMM
             string output = p.StandardOutput.ReadLine();
             p.WaitForExit();
             p.Close();
-            try
-            {
-                if (richTextBox1.Text != "" && richTextBox1.Text != initialText)
-                {
-                    string part_name = fileName.Split('.')[0];
+			try
+			{
+				if (richTextBox1.Text != "" /*&& richTextBox1.Text != initialText*/)
+				{
+					string part_name = fileName.Split('.')[0];
                     OutputRtx1.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.lex");
                     OutputRtx2.Text = System.IO.File.ReadAllText($"{filePath}{part_name}.syn");
                     //OutputRtx3.Text = interpreter.Output(gramParser.getIntercode());
                     Pre();
                     sl_Status.Text = "Analysis done successfully";
-                }
-                else
-                {
-                    MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch(Exception)
-            {
-                OutputRtx1.Text = "";
-                OutputRtx2.Text = "";
-                //OutputRtx3.Text = "";
-                MessageBox.Show("Please check your code and correct the errors before analyzing!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                sl_Status.Text = "Error occurred";
-            }
-        }
-        //添加一个Panel控件显示行号
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
+		}
+			    else
+			    {
+			        MessageBox.Show("Please input your code!", "Empty code", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			    }
+}
+			catch(Exception)
+			{
+			    OutputRtx1.Text = "";
+			    OutputRtx2.Text = "";
+			    //OutputRtx3.Text = "";
+			    MessageBox.Show("Please check your code and correct the errors before analyzing!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			    sl_Status.Text = "Error occurred";
+			}
+		}
+		//添加一个Panel控件显示行号
+		private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
             panel1.Invalidate();
         }
@@ -211,11 +212,18 @@ namespace CMM
         private void toolStripButtonRun_Click(object sender, EventArgs e)
         {
             string path = Environment.CurrentDirectory;
+			
             string cmdStr = $"py {path}\\cmm_parser.py {filePath}{fileName} & pause & exit";
-
             var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
-        }
-        void OutputDataReceived(object sender, DataReceivedEventArgs e)
+			
+
+
+			//调用变量文件输出文本框函数
+			Varmonitor();
+
+
+		}
+		void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             this.BeginInvoke(new Action(() => { textBox3.Text += "\r\n" + e.Data; }));
         }
@@ -487,16 +495,56 @@ namespace CMM
 
         protected override void DefWndProc(ref System.Windows.Forms.Message m)
         {
+			
             switch (m.Msg)
             {
                 case 1024:
                     Console.WriteLine(m.LParam);
-                    break;
+					break;
                 default:
                     base.DefWndProc(ref m);
-                    break;
+					break;
             }
-        }
+			if(count==0)
+			{
+				Varmonitor();
+			}
+			count++;
+			
 
-    }
+
+
+
+
+		}
+
+
+
+		//变量监视器
+		protected void Varmonitor()
+		{
+			try
+			{
+				if (richTextBox1.Text != "" )
+				{
+					string str = File.ReadAllText(@"../../../../parser_py/temp_dict");
+					textBox3.Text = str;
+				}
+				else
+				{
+					string str = "";
+					textBox3.Text = str;
+				}
+			}
+			catch (Exception)
+			{
+				string str = "";
+				textBox3.Text = str;
+			}
+
+			                                                            
+		}
+
+
+	}
 }

@@ -1,67 +1,77 @@
 // The Round Table
 digraph {
-	47 [label=E]
+	45 [label=E]
 	0 [label=int]
-	47 -> 0
-	48 [label=E]
+	45 -> 0
+	46 [label=E]
 	5 [label=int]
-	48 -> 5
-	49 [label=R]
-	8 [label=constnum]
-	49 -> 8
-	50 [label=G]
-	49 [label=R]
-	50 -> 49
-	51 [label=X]
-	50 [label=G]
-	51 -> 50
-	52 [label=F]
-	48 [label=E]
-	52 -> 48
+	46 -> 5
+	47 [label=F]
+	46 [label=E]
+	47 -> 46
 	6 [label=identity]
-	52 -> 6
-	7 [label="="]
-	52 -> 7
-	51 [label=X]
+	47 -> 6
+	48 [label=L]
+	47 [label=F]
+	48 -> 47
+	7 [label=";"]
+	48 -> 7
+	49 [label=M]
+	50 [label=R]
+	10 [label=identity]
+	50 -> 10
+	51 [label=G]
+	50 [label=R]
+	51 -> 50
+	52 [label=X]
+	51 [label=G]
 	52 -> 51
-	53 [label=L]
-	52 [label=F]
-	53 -> 52
-	9 [label=";"]
-	53 -> 9
-	54 [label=M]
-	55 [label=R]
-	12 [label=identity]
-	55 -> 12
-	56 [label=G]
-	55 [label=R]
+	53 [label=S]
+	11 [label="<"]
+	53 -> 11
+	54 [label=R]
+	12 [label=constnum]
+	54 -> 12
+	55 [label=G]
+	54 [label=R]
+	55 -> 54
+	56 [label=X]
+	55 [label=G]
 	56 -> 55
-	57 [label=X]
-	56 [label=G]
+	57 [label=O]
+	52 [label=X]
+	57 -> 52
+	53 [label=S]
+	57 -> 53
+	56 [label=X]
 	57 -> 56
-	58 [label=S]
-	13 [label="<"]
-	58 -> 13
+	58 [label=M]
 	59 [label=R]
-	14 [label=constnum]
-	59 -> 14
+	17 [label=identity]
+	59 -> 17
 	60 [label=G]
 	59 [label=R]
 	60 -> 59
 	61 [label=X]
 	60 [label=G]
 	61 -> 60
-	62 [label=O]
-	57 [label=X]
-	62 -> 57
-	58 [label=S]
-	62 -> 58
+	62 [label=T]
+	15 [label=write]
+	62 -> 15
+	16 [label="("]
+	62 -> 16
 	61 [label=X]
 	62 -> 61
-	63 [label=M]
+	18 [label=")"]
+	62 -> 18
+	63 [label=L]
+	62 [label=T]
+	63 -> 62
+	19 [label=";"]
+	63 -> 19
 	64 [label=R]
-	19 [label=identity]
-	64 -> 19
+	22 [label=identity]
+	64 -> 22
 	65 [label=G]
 	64 [label=R]
 	65 -> 64
@@ -69,22 +79,22 @@ digraph {
 	65 [label=G]
 	66 -> 65
 	67 [label=T]
-	17 [label=write]
-	67 -> 17
-	18 [label="("]
-	67 -> 18
+	20 [label=write]
+	67 -> 20
+	21 [label="("]
+	67 -> 21
 	66 [label=X]
 	67 -> 66
-	20 [label=")"]
-	67 -> 20
+	23 [label=")"]
+	67 -> 23
 	68 [label=L]
 	67 [label=T]
 	68 -> 67
-	21 [label=";"]
-	68 -> 21
+	24 [label=";"]
+	68 -> 24
 	69 [label=R]
-	24 [label=identity]
-	69 -> 24
+	27 [label=identity]
+	69 -> 27
 	70 [label=G]
 	69 [label=R]
 	70 -> 69
@@ -92,22 +102,22 @@ digraph {
 	70 [label=G]
 	71 -> 70
 	72 [label=T]
-	22 [label=write]
-	72 -> 22
-	23 [label="("]
-	72 -> 23
+	25 [label=write]
+	72 -> 25
+	26 [label="("]
+	72 -> 26
 	71 [label=X]
 	72 -> 71
-	25 [label=")"]
-	72 -> 25
+	28 [label=")"]
+	72 -> 28
 	73 [label=L]
 	72 [label=T]
 	73 -> 72
-	26 [label=";"]
-	73 -> 26
+	29 [label=";"]
+	73 -> 29
 	74 [label=R]
-	29 [label=identity]
-	74 -> 29
+	32 [label=identity]
+	74 -> 32
 	75 [label=G]
 	74 [label=R]
 	75 -> 74
@@ -115,157 +125,134 @@ digraph {
 	75 [label=G]
 	76 -> 75
 	77 [label=T]
-	27 [label=write]
-	77 -> 27
-	28 [label="("]
-	77 -> 28
+	30 [label=write]
+	77 -> 30
+	31 [label="("]
+	77 -> 31
 	76 [label=X]
 	77 -> 76
-	30 [label=")"]
-	77 -> 30
+	33 [label=")"]
+	77 -> 33
 	78 [label=L]
 	77 [label=T]
 	78 -> 77
-	31 [label=";"]
-	78 -> 31
+	34 [label=";"]
+	78 -> 34
 	79 [label=R]
-	34 [label=identity]
-	79 -> 34
+	37 [label=identity]
+	79 -> 37
 	80 [label=G]
 	79 [label=R]
 	80 -> 79
 	81 [label=X]
 	80 [label=G]
 	81 -> 80
-	82 [label=T]
-	32 [label=write]
-	82 -> 32
-	33 [label="("]
-	82 -> 33
-	81 [label=X]
-	82 -> 81
-	35 [label=")"]
-	82 -> 35
-	83 [label=L]
-	82 [label=T]
+	82 [label=R]
+	39 [label=constnum]
+	82 -> 39
+	83 [label=G]
+	82 [label=R]
 	83 -> 82
-	36 [label=";"]
-	83 -> 36
-	84 [label=R]
-	39 [label=identity]
-	84 -> 39
-	85 [label=G]
-	84 [label=R]
+	84 [label=X]
+	81 [label=X]
+	84 -> 81
+	38 [label="+"]
+	84 -> 38
+	83 [label=G]
+	84 -> 83
+	85 [label=F]
+	35 [label=identity]
+	85 -> 35
+	36 [label="="]
+	85 -> 36
+	84 [label=X]
 	85 -> 84
-	86 [label=X]
-	85 [label=G]
+	86 [label=L]
+	85 [label=F]
 	86 -> 85
-	87 [label=R]
-	41 [label=constnum]
-	87 -> 41
-	88 [label=G]
-	87 [label=R]
+	40 [label=";"]
+	86 -> 40
+	87 [label=C]
+	88 [label=C]
+	86 [label=L]
+	88 -> 86
+	87 [label=C]
 	88 -> 87
-	89 [label=X]
-	86 [label=X]
-	89 -> 86
-	40 [label="+"]
-	89 -> 40
-	88 [label=G]
+	89 [label=C]
+	78 [label=L]
+	89 -> 78
+	88 [label=C]
 	89 -> 88
-	90 [label=F]
-	37 [label=identity]
-	90 -> 37
-	38 [label="="]
-	90 -> 38
-	89 [label=X]
+	90 [label=C]
+	73 [label=L]
+	90 -> 73
+	89 [label=C]
 	90 -> 89
-	91 [label=L]
-	90 [label=F]
+	91 [label=C]
+	68 [label=L]
+	91 -> 68
+	90 [label=C]
 	91 -> 90
-	42 [label=";"]
-	91 -> 42
 	92 [label=C]
-	93 [label=C]
-	91 [label=L]
-	93 -> 91
+	63 [label=L]
+	92 -> 63
+	91 [label=C]
+	92 -> 91
+	93 [label=B]
+	14 [label="{"]
+	93 -> 14
 	92 [label=C]
 	93 -> 92
-	94 [label=C]
-	83 [label=L]
-	94 -> 83
-	93 [label=C]
+	41 [label="}"]
+	93 -> 41
+	94 [label=A]
+	8 [label=while]
+	94 -> 8
+	9 [label="("]
+	94 -> 9
+	49 [label=M]
+	94 -> 49
+	57 [label=O]
+	94 -> 57
+	13 [label=")"]
+	94 -> 13
+	58 [label=M]
+	94 -> 58
+	93 [label=B]
 	94 -> 93
-	95 [label=C]
-	78 [label=L]
-	95 -> 78
-	94 [label=C]
+	95 [label=L]
+	94 [label=A]
 	95 -> 94
 	96 [label=C]
-	73 [label=L]
-	96 -> 73
-	95 [label=C]
-	96 -> 95
 	97 [label=C]
-	68 [label=L]
-	97 -> 68
+	95 [label=L]
+	97 -> 95
 	96 [label=C]
 	97 -> 96
-	98 [label=B]
-	16 [label="{"]
-	98 -> 16
+	98 [label=C]
+	48 [label=L]
+	98 -> 48
 	97 [label=C]
 	98 -> 97
-	43 [label="}"]
-	98 -> 43
-	99 [label=A]
-	10 [label=while]
-	99 -> 10
-	11 [label="("]
-	99 -> 11
-	54 [label=M]
-	99 -> 54
-	62 [label=O]
-	99 -> 62
-	15 [label=")"]
-	99 -> 15
-	63 [label=M]
-	99 -> 63
-	98 [label=B]
-	99 -> 98
-	100 [label=L]
-	99 [label=A]
-	100 -> 99
-	101 [label=C]
-	102 [label=C]
-	100 [label=L]
-	102 -> 100
-	101 [label=C]
-	102 -> 101
-	103 [label=C]
-	53 [label=L]
-	103 -> 53
-	102 [label=C]
-	103 -> 102
-	104 [label=B]
+	99 [label=B]
 	4 [label="{"]
-	104 -> 4
-	103 [label=C]
-	104 -> 103
-	44 [label="}"]
-	104 -> 44
-	105 [label=P]
-	106 [label=P]
-	47 [label=E]
-	106 -> 47
+	99 -> 4
+	98 [label=C]
+	99 -> 98
+	42 [label="}"]
+	99 -> 42
+	100 [label=P]
+	101 [label=P]
+	45 [label=E]
+	101 -> 45
 	1 [label=identity]
-	106 -> 1
+	101 -> 1
 	2 [label="("]
-	106 -> 2
+	101 -> 2
 	3 [label=")"]
-	106 -> 3
-	104 [label=B]
-	106 -> 104
-	105 [label=P]
-	106 -> 105
+	101 -> 3
+	99 [label=B]
+	101 -> 99
+	100 [label=P]
+	101 -> 100
 }
