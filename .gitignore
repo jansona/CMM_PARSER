@@ -333,3 +333,4 @@ $RECYCLE.BIN/
 /.vs
 
 !parserGUI/CMM/Resources/*.png
+/parserGUI/CMM/obj/
