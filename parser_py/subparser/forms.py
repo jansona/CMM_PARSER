@@ -1,6 +1,7 @@
 
 from subparser.cmm_token import Token
 from subparser.ParseErrData import SEM_ERR, ParseErrData
+from subparser.inter_runner import func_dict
 
 
 ASSIGN = "{},=,{}"
@@ -47,10 +48,17 @@ def backpatch(j_cmds, stm):
 
 # P->Ed()BP
 def reduce_0(*args):
+    # 一个非常糟糕临时处理的想法，通过step命令记录的行号来找到函数位置
+    d = args[1]
+    d.place = d.name
+    func_dict[d.name] = d.line
     return Token(idt="P")
 
 # P->Ed(F)BP
 def reduce_1(*args):
+    d = args[1]
+    d.place = d.name
+    func_dict[d.name] = d.line
     return Token(idt="P")
 
 # P->@
@@ -75,6 +83,8 @@ def reduce_6(*args):
 
 # L->aX;
 def reduce_7(*args):
+    X = args[1]
+    gen('ret', X.place, None, None)
     return Token(idt="L")
 
 # L->I
@@ -305,9 +315,17 @@ def reduce_32(*args):
     gen('-', X0.place, G.place,X.place)
     return X
 
-# X->d(p)
+# F->d=d(X)
 def reduce_33(*args):
-    return Token(idt="X")
+    d0 = args[0]
+    d1 = args[2]
+    X = args[4]
+    d0.place = d0.name
+    d1.place = d1.name
+    gen('r=', X.place, None, 'rdx')
+    gen('call', None, None, d1.place)
+    gen('=r', 'rax', None, d0.place)
+    return Token(idt="F")
 
 # G->R
 def reduce_34(*args):
@@ -427,4 +445,4 @@ def reduce_49(*args):
     gen('write', X.place, None, None)
     return Token(idt="T")
 
-forms = [(6, reduce_0), (7, reduce_1), (0, reduce_2), (3, reduce_3), (0, reduce_4), (2, reduce_5), (2, reduce_6), (3, reduce_7), (1, reduce_8), (1, reduce_9), (2, reduce_10), (2, reduce_11), (4, reduce_12), (2, reduce_13), (10, reduce_14), (8, reduce_15), (5, reduce_16), (6, reduce_17), (0, reduce_18), (3, reduce_19), (3, reduce_20), (3, reduce_21), (1, reduce_22), (1, reduce_23), (10, reduce_24), (6, reduce_25), (6, reduce_26), (0, reduce_27), (0, reduce_28), (3, reduce_29), (1, reduce_30), (3, reduce_31), (3, reduce_32), (4, reduce_33), (1, reduce_34), (3, reduce_35), (3, reduce_36), (1, reduce_37), (1, reduce_38), (3, reduce_39), (4, reduce_40), (1, reduce_41), (1, reduce_42), (1, reduce_43), (1, reduce_44), (1, reduce_45), (1, reduce_46), (7, reduce_47), (4, reduce_48), (4, reduce_49)]
+forms = [(6, reduce_0), (7, reduce_1), (0, reduce_2), (3, reduce_3), (0, reduce_4), (2, reduce_5), (2, reduce_6), (3, reduce_7), (1, reduce_8), (1, reduce_9), (2, reduce_10), (2, reduce_11), (4, reduce_12), (2, reduce_13), (10, reduce_14), (8, reduce_15), (5, reduce_16), (6, reduce_17), (0, reduce_18), (3, reduce_19), (3, reduce_20), (3, reduce_21), (1, reduce_22), (1, reduce_23), (10, reduce_24), (6, reduce_25), (6, reduce_26), (0, reduce_27), (0, reduce_28), (3, reduce_29), (1, reduce_30), (3, reduce_31), (3, reduce_32), (6, reduce_33), (1, reduce_34), (3, reduce_35), (3, reduce_36), (1, reduce_37), (1, reduce_38), (3, reduce_39), (4, reduce_40), (1, reduce_41), (1, reduce_42), (1, reduce_43), (1, reduce_44), (1, reduce_45), (1, reduce_46), (7, reduce_47), (4, reduce_48), (4, reduce_49)]

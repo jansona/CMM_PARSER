@@ -1,7 +1,6 @@
 import os
 import win32api, win32gui, win32con
 from subparser.identity_table import TableItem, Table
-from subparser.forms import Quadruple
 from subparser.ParseErrData import RTM_ERR, ParseErrData
 
 
@@ -11,9 +10,13 @@ win_title = "CMM Parser"
 hwnd = win32gui.FindWindow(None, win_title)
 data_type = win32con.WM_USER
 
-rax = None
-address = None
-rdx = None
+register_dict = {
+    'rax': None,
+    'rdx': None,
+    'addr': None
+}
+
+func_dict = dict()
 
 def write_args_to_file(arg_dict):
     with open("./temp_dict", 'w') as fout:
@@ -182,7 +185,14 @@ def step(arg1, arg2, arg3):
             for item in value:
                 print("name: {}, type: {}, value: {}, domain: {}\n".format(item.name, item.idt_type, item.value, item.domain))
 
+def reg_asg(arg1, arg2, arg3):
     
+    register_dict[arg3] = eval(get_val_from_table(arg1))
+
+def asg_reg(arg1, arg2, arg3):
+    
+    idt_table.get_item(name=arg3).value = str(register_dict[arg1])
+
 
 running_actions = {
     '=': assign,
@@ -200,7 +210,11 @@ running_actions = {
     '>=': jbe,
     '<=': jle,
     'check': check,
-    'step': step
+    'step': step,
+    'r=': reg_asg,
+    '=r': asg_reg,
+    'call': None,   # 特殊处理
+    'ret': None
 }
 
 class InterRunner(object):
@@ -214,6 +228,14 @@ class InterRunner(object):
         i = 0
         length = len(commands)
 
+        line = func_dict['main']
+        for j in range(length):
+            temp_cmd = commands[j]
+            if temp_cmd.op == 'step' and temp_cmd.result == line:
+                i = j
+                break
+
+
         while i < length:
             
             cmd = commands[i]
@@ -223,8 +245,32 @@ class InterRunner(object):
             if cmd.op == 'step' and not step:
                 i += 1
                 continue
-            if cmd.op == 'check' and step:
+            elif cmd.op == 'check' and step:
                 i += 1
+                continue
+            elif cmd.op == 'call':
+                line = func_dict[cmd.result]
+                
+                register_dict['addr'] = i + 1
+                for j in range(length):
+                    temp_cmd = commands[j]
+                    if temp_cmd.op == 'step' and temp_cmd.result == line:
+                        i = j
+                        break
+
+                while commands[i].op != 'new':
+                    i += 1
+
+                # 虚参赋值
+                init_param_cmd = commands[i+1]
+                init_param_cmd.op = '=r'
+                init_param_cmd.arg0 = 'rdx'
+                init_param_cmd.result = commands[i].result
+
+                continue
+            elif cmd.op == 'ret':
+                register_dict['rax'] = eval(get_val_from_table(cmd.arg0))
+                i = register_dict['addr']
                 continue
 
             operation = running_actions[cmd.op]
@@ -243,7 +289,7 @@ class InterRunner(object):
             except Exception as e:
                 rtm_err = ParseErrData(RTM_ERR, None, "Run-time Error: {}".format(e))
                 print(rtm_err)
-                exit(1)
+                raise e
 
             if address == -1:
                 step = False

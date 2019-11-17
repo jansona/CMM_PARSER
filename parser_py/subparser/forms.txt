@@ -31,7 +31,7 @@ O->XSX$
 X->G$
 X->X+G$
 X->X-G$
-X->d(p)$
+F->d=d(X)$
 G->R$
 G->G*R$
 G->G/R$

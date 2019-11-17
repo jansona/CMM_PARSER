@@ -43,6 +43,8 @@ class SyntaxParser(object):
 
         line = 1
         temp_str = ""
+
+        gen('step', None, None, 1)
         
         while i < length:
             token = tokens[i]
