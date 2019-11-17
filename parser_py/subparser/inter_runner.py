@@ -11,6 +11,10 @@ win_title = "CMM Parser"
 hwnd = win32gui.FindWindow(None, win_title)
 data_type = win32con.WM_USER
 
+rax = None
+address = None
+rdx = None
+
 def write_args_to_file(arg_dict):
     with open("./temp_dict", 'w') as fout:
         for key, value in arg_dict.items():

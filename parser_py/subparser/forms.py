@@ -1,5 +1,6 @@
 
 from subparser.cmm_token import Token
+from subparser.ParseErrData import SEM_ERR, ParseErrData
 
 
 ASSIGN = "{},=,{}"
