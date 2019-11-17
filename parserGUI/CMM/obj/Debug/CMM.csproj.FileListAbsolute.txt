@@ -18,3 +18,12 @@ C:\Users\司晨阳\Desktop\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.csproj.Generat
 C:\Users\司晨阳\Desktop\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.csproj.CoreCompileInputs.cache
 C:\Users\司晨阳\Desktop\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.exe
 C:\Users\司晨阳\Desktop\RESRAP_MMC\parserGUI\CMM\obj\Debug\CMM.pdb
+D:\Codes\git\CMM6\parserGUI\CMM\bin\Debug\CMM.exe
+D:\Codes\git\CMM6\parserGUI\CMM\bin\Debug\CMM.pdb
+D:\Codes\git\CMM6\parserGUI\CMM\obj\Debug\CMM.CMMParser.resources
+D:\Codes\git\CMM6\parserGUI\CMM\obj\Debug\CMM.Properties.Resources.resources
+D:\Codes\git\CMM6\parserGUI\CMM\obj\Debug\CMM.TreeFrom.resources
+D:\Codes\git\CMM6\parserGUI\CMM\obj\Debug\CMM.csproj.GenerateResource.cache
+D:\Codes\git\CMM6\parserGUI\CMM\obj\Debug\CMM.exe
+D:\Codes\git\CMM6\parserGUI\CMM\obj\Debug\CMM.pdb
+D:\Codes\git\CMM6\parserGUI\CMM\obj\Debug\CMM.csprojAssemblyReference.cache
