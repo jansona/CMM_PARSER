@@ -222,8 +222,23 @@ namespace CMM
 			}
 			else
 			{
-				string row = textBox1.Text;//断点行号
-				string check_points = "[" + row + "]";
+                int row = int.Parse(textBox1.Text);//断点行号
+
+                //换色
+                int start = 0, count = 1;
+                int index = richTextBox1.Text.IndexOf('\n', start);
+                while (index > -1)
+                {
+                    richTextBox1.Select(start, index - start);
+                    setColor(count);
+                    count++;
+                    start = index + 1;
+                    index = richTextBox1.Text.IndexOf('\n', start);
+                }
+                richTextBox1.Select(start, richTextBox1.Text.Length - start);
+                setColor(count);
+
+                string check_points = "[" + row + "]";
 				string cmdStr = $"py {path}\\cmm_parser.py -c \"{check_points}\" {filePath}{fileName} & pause & exit";
 				var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
 			}
@@ -231,7 +246,16 @@ namespace CMM
 			Varmonitor();
 
 		}
-		void OutputDataReceived(object sender, DataReceivedEventArgs e)
+
+        private void setColor(int lines)
+        {
+            int row = int.Parse(textBox1.Text);
+            if (lines == row)
+                richTextBox1.SelectionColor = Color.Red;
+            else if (lines == 5)//单步执行行号，数字5为虚设，之后根据后台数据修改
+                richTextBox1.SelectionColor = Color.Blue;
+        }
+        void OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
             this.BeginInvoke(new Action(() => { textBox3.Text += "\r\n" + e.Data; }));
         }
