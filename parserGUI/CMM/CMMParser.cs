@@ -501,6 +501,18 @@ namespace CMM
    region.Dispose();
 }*/
 
+        private void setColor(int lines, int target)
+        {
+            if(lines == target)
+            {
+                richTextBox1.SelectionBackColor = Color.Red;
+            }
+            else
+            {
+                richTextBox1.SelectionBackColor = Color.White;
+            }
+        }
+
         protected override void DefWndProc(ref System.Windows.Forms.Message m)
         {
 			
@@ -508,7 +520,24 @@ namespace CMM
             {
                 case 1024:
                     Console.WriteLine(m.LParam);
-					break;
+                    int line_num = (int)m.LParam;
+
+                    int start = 0;
+                    int count = 1;
+                    int index = richTextBox1.Text.IndexOf('\n', start);
+                    while (index > -1)
+                    {
+                        richTextBox1.Select(start, index - start);
+                        setColor(count, line_num);
+                        count++;
+                        start = index + 1;
+                        index = richTextBox1.Text.IndexOf('\n', start);
+                    }
+                    richTextBox1.Select(start, richTextBox1.Text.Length - start);
+                    setColor(count, line_num);
+
+
+                    break;
                 default:
                     base.DefWndProc(ref m);
 					break;
