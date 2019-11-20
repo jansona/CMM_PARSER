@@ -216,9 +216,7 @@ namespace CMM
 			{
 				string check_points = "[]";
 				string cmdStr = $"py {path}\\cmm_parser.py -c \"{check_points}\" {filePath}{fileName} & pause & exit";
-				var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
-			
-
+                var cmd = Process.Start("cmd.exe", "/k " + cmdStr);
 			}
 			else
 			{
@@ -522,6 +520,12 @@ namespace CMM
                     Console.WriteLine(m.LParam);
                     int line_num = (int)m.LParam;
 
+                    if(line_num == -1)
+                    {
+                        richTextBox1.Select();
+                        richTextBox1.SelectionBackColor = Color.White;
+                    }
+
                     int start = 0;
                     int count = 1;
                     int index = richTextBox1.Text.IndexOf('\n', start);
@@ -547,12 +551,6 @@ namespace CMM
 				Varmonitor();
 			}
 			count++;
-			
-
-
-
-
-
 		}
 
 

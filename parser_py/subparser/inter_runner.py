@@ -300,3 +300,5 @@ class InterRunner(object):
                 continue
             i += 1
 
+        win32gui.SendMessage(hwnd, data_type, None, -1)
+
