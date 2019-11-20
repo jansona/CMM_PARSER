@@ -1,0 +1,17 @@
+
+code1 = "int main(){"
+code2 = "if(" + chr(ord('a') + random.randint(0, 25)) + " > " + str(random.randint(0, 25))  # if语句
+code3 = "while(" + chr(ord('a') + random.randint(0, 25)) + " > " + str(random.randint(0, 25))  # while语句
+code4 = 'int ' + chr(ord('a') + random.randint(0, 25)) + ' = ' + str(random.randint(0, 25)) + ';'  # int语句
+code5 = 'real ' + chr(ord('a') + random.randint(0, 25)) + ' = ' + str(random.randint(0, 25)) + ';'  # real语句
+code6 = chr(ord('a') + random.randint(0, 25)) + ' = ' + str(random.randint(0, 25)) + ' + ' + chr(
+    ord('a') + random.randint(0, 25)) + ';'  # 加法语句
+code7 = chr(ord('a') + random.randint(0, 25)) + ' = ' + str(random.randint(0, 25)) + ' - ' + chr(
+    ord('a') + random.randint(0, 25) ) + ';'  # 减法语句
+code8 = chr(ord('a') + random.randint(0, 26)) + ' = ' + str(random.randint(0, 25)) + ' * ' + chr(
+    ord('a') + random.randint(0, 25) ) + ';'  # 乘法语句
+code9 = chr(ord('a') + random.randint(0, 26)) + ' = ' + str(random.randint(0, 25)) + ' / ' + chr(
+    ord('a') + random.randint(0, 25) ) + ';'  # 除法语句
+code10 = chr(ord('a') + random.randint(0, 26)) + ' = ' + str(random.randint(0, 25)) + ' % ' + chr(
+    ord('a') + random.randint(0, 25) ) + ';'  # 求余语句
+codeEnd = '}'
