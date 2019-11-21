@@ -1,0 +1,15 @@
+int main()
+{
+    int 2a;
+
+    int i = 0;
+    while(i < 3){
+        write(i);
+        write(i);
+        write(i);
+        write(i);
+        i = i + 1;
+    }
+
+    @$
+}

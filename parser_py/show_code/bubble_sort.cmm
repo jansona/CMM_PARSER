@@ -1,24 +1,19 @@
+int incr(int x)
+{
+    return x + 1;
+}
+
 int main()
 {
-    /*
-    int i = 0;
-    while(i < 3){
-        write(i);
-        write(i);
-        write(i);
-        write(i);
-        i = i + 1;
-    }
-    */
-
-    int a[5] = {4,1,0,2,3};
+    int a[5];
 
     int i = 0;
 
+    /* assign the element in the array */
     i = 0;
     while(i < 5){
-        write(a[i]);
-        i = i + 1;
+        read(a[i]);
+        i = incr(i);
     }
 
     int j = 0;
@@ -32,39 +27,15 @@ int main()
                 a[j+1] = a[j];
                 a[j] = t;
             }
-            j = j + 1;
+            j = incr(j);
         }
-        i = i + 1;
+        i = incr(i);
     }
 
+    /* print after sorting */
     i = 0;
     while(i < 5){
         write(a[i]);
-        i = i + 1;
+        i = incr(i);
     }
-
-    /*
-    int a = 1;
-    write(a);
-
-    int b = 5;
-
-    if(a > b){
-        write(a);
-    }else{
-        write(b);
-    }
-
-    int i = 0;
-    while(a <= b){
-        write(a);
-        a = a + 1;
-
-        i = 0;
-        while(i < 3){
-            write(b);
-            i = i + 1;
-        }
-    }
-    */
 }

@@ -142,7 +142,7 @@ def reduce_14(*args):
     for index, n in enumerate(N.value):
         gen('=', n, None, "{}+{}".format(d.place, index+1))
 
-    if int(n.value) <= 0:
+    if int(n0.value) <= 0:
         raise ParseErrData(SEM_ERR, int(n.line), 
             "The size of array must be positive but got {}".format(n.value), 
             Token(idt="F"))
